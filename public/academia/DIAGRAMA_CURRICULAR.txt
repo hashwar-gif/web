@@ -1,0 +1,61 @@
+================================================================================
+          DIAGRAMA CURRICULAR: HASHWAR ACADEMY (COLEGIO & UNIVERSIDAD)
+================================================================================
+
+ESTRUCTURA TÉCNICA:
+- Framework: Bootstrap 5 (Layout Responsivo)
+- Gamificación: 250 $HASH por lección completada
+- Persistencia: LocalStorage (Sincronización Global)
+
+--------------------------------------------------------------------------------
+1. SECTOR COLEGIO (NIVEL SECUNDARIA)
+--------------------------------------------------------------------------------
+Duración: 3 Meses | Frecuencia: 5 Días por Semana (Lunes a Viernes)
+
+[MES 1: 4TO DE SECUNDARIA - FUNDAMENTOS]
+- SEMANA 1: ¿Qué es el dinero? (Trueque, Oro, Billetes, Inflación, Digital)
+- SEMANA 2: El Nacimiento de Bitcoin (Satoshi, Descentralización, 21M, Oro Digital, Transparencia)
+- SEMANA 3: ¿Qué es una Cripto? (Activo Digital, Criptografía, Coins vs Tokens, Volatilidad, Adopción)
+- SEMANA 4: La Blockchain (Bloques, Hash, Inmutabilidad, Nodos, Distribución)
+
+[MES 2: 5TO DE SECUNDARIA - CRIPTOECONOMÍA]
+- SEMANA 5: Psicología del Mercado (Oferta/Demanda, Miedo/Codicia, Velas, Fundamental, Ballenas)
+- SEMANA 6: USDT y Stablecoins (Dólar Digital, Refugio, TRC-20, ERC-20, Verificación)
+- SEMANA 7: Minería Bitcoin (Proof of Work, Halving, ASIC, Dificultad, Seguridad)
+- SEMANA 8: Compra P2P (Binance P2P, Escrow, Reputación, Triangulación, Comprobantes)
+
+[MES 3: 6TO DE SECUNDARIA - SEGURIDAD ÉLITE]
+- SEMANA 9: Wallets y Custodia (Semilla, Cold Wallets, Hot Wallets, Contraseñas, Autocustodia)
+- SEMANA 10: Estafas Comunes (Phishing, Soporte Falso, Rug Pulls, Duplicadores, Red Flags)
+- SEMANA 11: Esquemas Ponzi (Definición, Reclutamiento, Colapso, Bots Mágicos, Ed. Financiera)
+- SEMANA 12: Responsabilidad (Diversificación, Dinero Emergencia, Paciencia, Ética, Graduación)
+
+--------------------------------------------------------------------------------
+2. SECTOR UNIVERSIDAD (PRO)
+--------------------------------------------------------------------------------
+Duración: 3 Meses | Frecuencia: 7 Días por Semana (Ciclo Técnico Completo)
+
+[MES 1: ARQUITECTURA Y TEORÍA MONETARIA]
+- SEMANA 1: Dinero e Inflación (Escasez, Fallo Fiat, Cantillon, Crisis 2008, 21M, Nodos, Código)
+- SEMANA 2: Protocolo Bitcoin (Whitepaper, Privadas, Públicas, UTXO, Nodos, Firmas, Pseudonimato)
+- SEMANA 3: Blockchain Técnica (Bloque, SHA-256, Encadenamiento, Mempool, Merkle, Inmutable, Time)
+- SEMANA 4: Consenso y Trilema (PoW, PoS, S/E/D, Libertad, Capacidad, Blindaje, Validadores)
+
+[MES 2: ECOSISTEMAS Y TOKENOMICS]
+- SEMANA 5: Tokens y Smart Contracts (SC, Ethereum, ERC-20, Layer 2, NFTs, DAOs, Oráculos)
+- SEMANA 6: Tokenomics (Supply, Vesting, Market Cap, Burn, Ballenas, Inflación, Utilidad)
+- SEMANA 7: Minería Profunda (ASIC, Hashrate, Pools, Dificultad, Energía, Subsidio, Solo vs Pool)
+- SEMANA 8: Ciclos de Mercado (Halving, S2F, Bull Market, Bear Market, 4 Años, Acumulación, 2140)
+
+[MES 3: OPERATIVA PROFESIONAL Y CIBERSEGURIDAD]
+- SEMANA 9: USDT y Redes (Stablecoins, TRC-20, ERC-20, Depeg, Respaldo, Arbitraje, USDC vs USDT)
+- SEMANA 10: Operativa P2P (Trato directo, Escrow, 95%+, Apelación, Triangulación, KYC, Limit)
+- SEMANA 11: Custodia Pro (Seed, Cold Wallets, Hot Wallets, Ledger, Multi-sig, Herencia, Soberanía)
+- SEMANA 12: Fraude y Graduación (Phishing, SIM Swap, Rug Pulls, Ponzi, Ing. Social, Malware, Sinc)
+
+--------------------------------------------------------------------------------
+RECOMPENSAS GLOBALES:
+- 84 Lecciones Universidad x 250 $HASH = 21,000 $HASH Totales
+- 60 Lecciones Colegio x 250 $HASH     = 15,000 $HASH Totales
+--------------------------------------------------------------------------------
+FIN DEL DIAGRAMA CURRICULAR - HASHWAR ACADEMY V1.0

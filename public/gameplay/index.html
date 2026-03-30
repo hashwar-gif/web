@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HASHWAR: Rise of the Miners</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <div class="game-title">HASHWAR</div>
+    <div class="loading-bar-container">
+        <div id="loading-bar"></div>
+    </div>
+    <div id="loading-text">Cargando recursos...</div>
+    <div id="crypto-wisdom" style="margin-top: 20px; color: #ffaa00; font-size: 0.9rem; max-width: 400px; text-align: center; font-style: italic; font-family: sans-serif;">
+        "La minería requiere estrategia y paciencia. El mercado cripto es volátil; invierte solo lo que estés dispuesto a arriesgar."
+    </div>
+</div>
+
+<div class="game-container">
+  <div class="top-hud">
+    <div class="game-title">HASHWAR</div>
+    <div class="level-system">
+      <div class="level-indicator-hud" id="player-level">Nvl. 1</div>
+      <div class="xp-bar">
+        <div class="xp-progress" id="xp-progress" style="width:0%;"></div>
+      </div>
+    </div>
+    <div class="timer-container" id="timer-container">
+      <div class="timer-icon">T</div>
+      <span class="timer-text" id="game-timer">15:00</span>
+    </div>
+    <div class="resource">
+      <div class="resource-icon btc-icon">₿</div>
+      <span id="btc-count">0.00100000</span> BTC
+    </div>
+    <div class="resource">
+      <div class="resource-icon hash-icon">H</div>
+      <span id="hash-count">3,200</span> $HASH
+    </div>
+    <div class="resource">
+      <div class="resource-icon gold-icon">G</div>
+      <span id="gold-count">100</span> GOLD
+    </div>
+    <div class="resource energy-tooltip" id="energy-display">
+      <div class="resource-icon energy-icon">E</div>
+      <div class="energy-display">
+        <div class="energy-bar-container">
+          <div class="energy-bar" id="energy-bar" style="width:50%;"></div>
+        </div>
+        <div class="energy-text">
+          <span id="energy-count">100</span>/<span id="energy-max">200</span> ENERGY
+          <span class="energy-net positive" id="energy-net">(+0)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="energy-details" id="energy-details">
+    <div class="energy-details-title">DETALLES DE ENERGÍA</div>
+    <div class="energy-details-item">
+      <span>Producción total:</span>
+      <span class="energy-details-value positive" id="energy-production">+0</span>
+    </div>
+    <div class="energy-details-item">
+      <span>Consumo total:</span>
+      <span class="energy-details-value negative" id="energy-consumption">-0</span>
+    </div>
+    <div class="energy-details-item">
+      <span>Balance neto:</span>
+      <span class="energy-details-value positive" id="energy-balance">+0</span>
+    </div>
+    <div class="energy-details-item">
+      <span>Capacidad máxima:</span>
+      <span class="energy-details-value" id="energy-capacity">200</span>
+    </div>
+    <div class="energy-details-item" style="margin-top:10px;border-top:1px solid #00d4ff;padding-top:5px;">
+      <span>Estado:</span>
+      <span class="energy-details-value positive" id="energy-status">Suficiente</span>
+    </div>
+  </div>
+  
+  <div class="energy-alert" id="energy-alert">¡ENERGÍA INSUFICIENTE! La producción se reduce al 30%. Construye más Plantas de Energía.</div>
+  
+  <div class="game-area">
+    <div class="grid-container">
+      <div class="grid" id="game-grid"></div>
+    </div>
+    
+    <button class="attack-btn" id="attack-btn">ATACAR ENEMIGO</button>
+    
+    <!-- Nuevos elementos para IA enemiga -->
+    <div class="ai-difficulty-indicator" id="ai-difficulty">IA: Nivel 1 - Pasivo</div>
+    <div class="enemy-evolution-bar" id="enemy-evolution-bar">
+      <div class="enemy-evolution-progress" id="enemy-evolution-progress" style="width: 0%;"></div>
+    </div>
+    
+    <div class="units-panel" id="units-panel">
+      <div class="units-title">CREAR UNIDADES</div>
+      <div class="unit-item"><span>Soldados:</span><span class="unit-count" id="soldier-count">0</span></div>
+      <div class="unit-cost">100 $HASH, 2 Energía</div>
+      <button class="create-unit-btn" data-unit="soldier" id="soldier-btn" disabled>CREAR SOLDADO</button>
+      <div class="unit-item"><span>Bazookas:</span><span class="unit-count" id="bazooka-count">0</span></div>
+      <div class="unit-cost">200 $HASH, 4 Energía</div>
+      <button class="create-unit-btn" data-unit="bazooka" id="bazooka-btn" disabled>CREAR BAZOOKA</button>
+      <div class="unit-item"><span>Francotiradores:</span><span class="unit-count" id="sniper-count">0</span></div>
+      <div class="unit-cost">300 $HASH, 3 Energía</div>
+      <button class="create-unit-btn" data-unit="sniper" id="sniper-btn" disabled>CREAR FRANCOTIRADOR</button>
+      <div class="unit-item"><span>Tanques:</span><span class="unit-count" id="tank-count">0</span></div>
+      <div class="unit-cost">800 $HASH, 10 Energía</div>
+      <button class="create-unit-btn" data-unit="tank" id="tank-btn" disabled>CREAR TANQUE</button>
+      <div class="unit-item"><span>Drones:</span><span class="unit-count" id="drone-count">0</span></div>
+      <div class="unit-cost">500 $HASH, 6 Energía</div>
+      <button class="create-unit-btn" data-unit="drone" id="drone-btn" disabled>CREAR DRON</button>
+      <div class="unit-item"><span>Robots:</span><span class="unit-count" id="robot-count">0</span></div>
+      <div class="unit-cost">1000 $HASH, 12 Energía</div>
+      <button class="create-unit-btn" data-unit="robot" id="robot-btn" disabled>CREAR ROBOT</button>
+      <div class="unit-item"><span>Exoesqueletos:</span><span class="unit-count" id="exoskeleton-count">0</span></div>
+      <div class="unit-cost">600 $HASH, 8 Energía</div>
+      <button class="create-unit-btn" data-unit="exoskeleton" id="exoskeleton-btn" disabled>CREAR EXOESQUELETO</button>
+      <div class="unit-item"><span>Hackers:</span><span class="unit-count" id="hacker-count">0</span></div>
+      <div class="unit-cost">750 $HASH, 5 Energía</div>
+      <button class="create-unit-btn" data-unit="hacker" id="hacker-btn" disabled>CREAR HACKER</button>
+    </div>
+    
+    <div class="units-control-panel" id="units-control-panel">
+      <button class="unit-action-btn" id="move-unit-btn">MOVER</button>
+      <button class="unit-action-btn" id="attack-unit-btn">ATACAR</button>
+      <button class="unit-action-btn" id="stop-unit-btn">DETENER</button>
+    </div>
+    
+    <div class="upgrade-panel" id="upgrade-panel">
+      <div class="upgrade-title" id="upgrade-building-name">EDIFICIO</div>
+      <div class="upgrade-level"><span>Nivel 1:</span><span class="upgrade-cost">0.00003650 BTC</span></div>
+      <div class="upgrade-level"><span>Nivel 2:</span><span class="upgrade-cost">0.00004200 BTC</span></div>
+      <div class="upgrade-level"><span>Nivel 3:</span><span class="upgrade-cost">0.00005200 BTC</span></div>
+      <div class="upgrade-level"><span>Nivel 4:</span><span class="upgrade-cost">0.00006200 BTC</span></div>
+      <div class="upgrade-level"><span>Nivel 5:</span><span class="upgrade-cost">0.00007250 BTC</span></div>
+      <button class="upgrade-btn" id="upgrade-btn">MEJORAR</button>
+      <button class="upgrade-btn" id="destroy-btn" style="background:linear-gradient(135deg,#ff4444,#cc3333);margin-top:5px;">DESTRUIR</button>
+    </div>
+    
+    <div class="stats-panel" id="stats-panel">
+      <div class="stats-title">ESTADÍSTICAS</div>
+      <div class="stats-item"><span class="stats-label">Inversión BTC:</span><span class="stats-value" id="stats-btc-invested">0.00000000</span></div>
+      <div class="stats-item"><span class="stats-label">Producción BTC:</span><span class="stats-value" id="stats-btc-production">+0.00000000/h</span></div>
+      <div class="stats-item"><span class="stats-label">Total $HASH:</span><span class="stats-value" id="stats-hash-total">0</span></div>
+      <div class="stats-item"><span class="stats-label">Producción $HASH:</span><span class="stats-value" id="stats-hash-production">+0/h</span></div>
+      <div class="stats-item"><span class="stats-label">Energía:</span><span class="stats-value" id="stats-energy">0/200</span></div>
+      <div class="stats-progress"><div class="stats-progress-bar" id="stats-energy-bar" style="width:0%;"></div></div>
+      <div class="stats-subitem"><span>Producción: <span id="stats-energy-production">+0</span></span><span>Consumo: <span id="stats-energy-consumption">-0</span></span></div>
+      <div class="stats-miners">
+        <div class="stats-item"><span class="stats-label">Mineros activos:</span><span class="stats-value" id="stats-miners-count">0</span></div>
+        <div class="stats-subitem"><span>Granjas: <span id="stats-farms-count">0</span></span><span>Nivel total: <span id="stats-farms-level">0</span></span></div>
+        <div class="stats-subitem"><span>Eficiencia: <span id="stats-mining-efficiency">0%</span></span></div>
+      </div>
+    </div>
+    
+    <!-- Panel de Contratos -->
+    <div class="contracts-panel" id="contracts-panel">
+      <div class="contracts-title">
+        <span>CONTRATOS Y TRANSACCIONES</span>
+        <span id="contracts-count">(0)</span>
+      </div>
+      <div class="contracts-list" id="contracts-list">
+        <div class="contracts-empty">No hay transacciones registradas</div>
+      </div>
+      <div class="contracts-controls">
+        <button class="contracts-btn" id="clear-contracts-btn">LIMPIAR</button>
+        <button class="contracts-btn" id="export-contracts-btn">EXPORTAR</button>
+      </div>
+    </div>
+    
+    <!-- Panel de Detalles de Contrato -->
+    <div class="contract-detail-panel" id="contract-detail-panel">
+      <div class="contract-detail-header">
+        <div class="contract-detail-title" id="contract-detail-title">DETALLES DEL CONTRATO</div>
+        <button class="close-contract-detail" id="close-contract-detail">×</button>
+      </div>
+      <div class="contract-detail-content" id="contract-detail-content">
+        <!-- Contenido dinámico -->
+      </div>
+    </div>
+  </div>
+  
+  <div class="hud-tab">
+    <button class="tab-btn active" data-tab="buildings">EDIFICIOS</button>
+    <button class="tab-btn" data-tab="units">UNIDADES</button>
+    <button class="tab-btn" data-tab="nft-store">NFT MARKET</button>
+    <button class="tab-btn" data-tab="research">INVESTIGACIÓN</button>
+    <button class="tab-btn" data-tab="contracts">CONTRATOS</button>
+    <button class="tab-btn" id="stats-btn">ESTADÍSTICAS</button>
+  </div>
+  
+  <div class="bottom-hud" id="buildings-tab">
+    <button class="building-btn" data-building="base">BASE<div class="building-cost">0.00003650 BTC</div><div class="level-requirement">Nvl. 1</div></button>
+    <button class="building-btn" data-building="power-plant">ENERGÍA<div class="building-cost">0.00002800 BTC</div><div class="level-requirement">Nvl. 1</div></button>
+    <button class="building-btn building-locked" data-building="mining-farm">MINERÍA<div class="building-cost">0.00002600 BTC</div><div class="level-requirement">Nvl. 2</div></button>
+    <button class="building-btn building-locked" data-building="barracks">BARRACAS<div class="building-cost">0.00002500 BTC</div><div class="level-requirement">Nvl. 3</div></button>
+    <button class="building-btn building-locked" data-building="vehicle-depot">TALLER<div class="building-cost">0.00003800 BTC</div><div class="level-requirement">Nvl. 4</div></button>
+    <button class="building-btn building-locked" data-building="aircraft-hangar">HANGAR<div class="building-cost">0.00005800 BTC</div><div class="level-requirement">Nvl. 5</div></button>
+    <button class="building-btn building-locked" data-building="research-lab">LABORATORIO<div class="building-cost">0.00003500 BTC</div><div class="level-requirement">Nvl. 6</div></button>
+    <button class="building-btn building-locked" data-building="hacker-academy">HACKERS<div class="building-cost">0.00004500 BTC</div><div class="level-requirement">Nvl. 7</div></button>
+    <button class="building-btn building-locked" data-building="defense-tower">DEFENSA<div class="building-cost">0.00003200 BTC</div><div class="level-requirement">Nvl. 8</div></button>
+  </div>
+  
+  <div class="units-tab" id="units-tab">
+    <div class="unit-card" data-unit="soldier">SOLDADO<div class="unit-stats">⚔️10 ❤️50</div><div class="unit-cost-display">100 $HASH</div></div>
+    <div class="unit-card" data-unit="bazooka">BAZOOKA<div class="unit-stats">⚔️25 ❤️70</div><div class="unit-cost-display">200 $HASH</div></div>
+    <div class="unit-card" data-unit="sniper">FRANCOTIRADOR<div class="unit-stats">⚔️15 ❤️40</div><div class="unit-cost-display">300 $HASH</div></div>
+    <div class="unit-card" data-unit="tank">TANQUE<div class="unit-stats">⚔️30 ❤️150</div><div class="unit-cost-display">800 $HASH</div></div>
+    <div class="unit-card" data-unit="drone">DRON<div class="unit-stats">⚔️12 ❤️30</div><div class="unit-cost-display">500 $HASH</div></div>
+    <div class="unit-card" data-unit="robot">ROBOT<div class="unit-stats">⚔️35 ❤️120</div><div class="unit-cost-display">1000 $HASH</div></div>
+    <div class="unit-card" data-unit="exoskeleton">EXOESQUELETO<div class="unit-stats">⚔️20 ❤️80</div><div class="unit-cost-display">600 $HASH</div></div>
+    <div class="unit-card" data-unit="hacker">HACKER<div class="unit-stats">⚔️18 ❤️60</div><div class="unit-cost-display">750 $HASH</div></div>
+  </div>
+  
+  <div class="nft-store-tab" id="nft-store-tab">
+    <div class="nft-item" data-nft="gpu-miner"><div style="font-size:30px;">🖥️</div>GPU MINER<div class="nft-stats">+15% BTC</div><div class="nft-price">0.0010 BTC</div></div>
+    <div class="nft-item" data-nft="asic-miner"><div style="font-size:30px;">💻</div>ASIC MINER<div class="nft-stats">+30% BTC</div><div class="nft-price">0.0035 BTC</div></div>
+    <div class="nft-item" data-nft="hash-boost"><div style="font-size:30px;">⚡</div>HASH BOOST<div class="nft-stats">+25% $HASH</div><div class="nft-price">5,000 $HASH</div></div>
+    <div class="nft-item" data-nft="energy-core"><div style="font-size:30px;">🔋</div>ENERGY CORE<div class="nft-stats">+50 Energía</div><div class="nft-price">0.0015 BTC</div></div>
+    <div class="nft-item" data-nft="defense-matrix"><div style="font-size:30px;">🛡️</div>DEFENSE MATRIX<div class="nft-stats">+20% Defensa</div><div class="nft-price">8,000 $HASH</div></div>
+    <div class="nft-item" data-nft="quantum-chip"><div style="font-size:30px;">🧠</div>QUANTUM CHIP<div class="nft-stats">+10% Velocidad</div><div class="nft-price">0.0050 BTC</div></div>
+  </div>
+  
+  <div class="research-tab" id="research-tab">
+    <div class="research-item" data-research="mining-optimization">OPTIMIZACIÓN MINERA<div class="research-benefits">+10% BTC</div><div class="research-cost">2,000 $HASH</div><div class="research-progress"><div class="research-progress-bar" style="width:0%"></div></div></div>
+    <div class="research-item" data-research="energy-efficiency">EFICIENCIA ENERGÉTICA<div class="research-benefits">-15% Consumo</div><div class="research-cost">3,500 $HASH</div><div class="research-progress"><div class="research-progress-bar" style="width:0%"></div></div></div>
+    <div class="research-item" data-research="cyber-defense">DEFENSA CIBERNÉTICA<div class="research-benefits">+25% Defensa</div><div class="research-cost">5,000 $HASH</div><div class="research-progress"><div class="research-progress-bar" style="width:0%"></div></div></div>
+    <div class="research-item" data-research="quantum-computing">COMPUTACIÓN CUÁNTICA<div class="research-benefits">+20% Velocidad</div><div class="research-cost">0.0010 BTC</div><div class="research-progress"><div class="research-progress-bar" style="width:0%"></div></div></div>
+    <div class="research-item" data-research="ai-assistant">ASISTENTE IA<div class="research-benefits">Automatización</div><div class="research-cost">0.0025 BTC</div><div class="research-progress"><div class="research-progress-bar" style="width:0%"></div></div></div>
+  </div>
+  
+  <div class="contracts-tab" id="contracts-tab">
+    <div class="contracts-empty">
+      <h3>PANEL DE CONTRATOS</h3>
+      <p>Todas las transacciones del juego se registran como contratos inteligentes</p>
+      <p>Consulta el panel de contratos para ver detalles técnicos</p>
+    </div>
+  </div>
+  
+  <div class="tutorial-overlay" id="tutorial-overlay">
+    <div class="tutorial-panel" style="max-width: 500px; border: 2px solid #00ff88; background: rgba(0, 10, 20, 0.95); box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);">
+      <div class="tutorial-title" style="color: #00ff88; font-size: 2.2rem; text-shadow: 0 0 15px #00ff88; font-family: 'Orbitron', sans-serif;">BIENVENIDO A HASHWAR</div>
+      <div class="tutorial-text" id="tutorial-text" style="text-align: left; font-size: 0.95rem; line-height: 1.5; font-family: sans-serif; color: #e0f0ff;">
+        <p style="margin-bottom: 12px;">Entras en <strong>HASHWAR</strong>, donde la potencia de cálculo es poder y la estrategia tu única defensa.</p>
+        
+        <div style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid #00d4ff; padding: 12px; margin-bottom: 15px; border-radius: 0 5px 5px 0;">
+            <p style="color: #00d4ff; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem;">🎮 SIMULACIÓN VIRTUAL (FASE PRE-BETA):</p>
+            <p style="font-size: 0.8rem; color: #88ccff; margin: 0;">Esta es una versión de prueba. Actualmente <strong>no se manejan activos digitales reales</strong> ni transacciones de valor económico. Toda la minería y recursos son parte de la simulación virtual del juego.</p>
+        </div>
+
+        <p style="margin-bottom: 10px;">Tu misión: Construir infraestructuras, optimizar tu minería y conquistar la red frente a los invasores.</p>
+        <p style="text-align: center; margin-top: 15px; font-weight: bold; color: #00d4ff; font-size: 1.1rem; text-transform: uppercase;">¡PREPÁRATE PARA MINAR Y CONQUISTAR!</p>
+      </div>
+      <button class="tutorial-btn" id="tutorial-next" style="background: linear-gradient(135deg, #00ff88, #0099cc); color: #001122; font-weight: 900; border: none; padding: 15px 30px; cursor: pointer; border-radius: 5px; width: 100%; font-family: 'Orbitron', sans-serif; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;">ACEPTAR Y COMENZAR BATALLA</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

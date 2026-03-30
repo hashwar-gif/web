@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - HASHWAR</title>
+  
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./public/css/styles.css">
+    
+    <style>
+        :root {
+            --primary-glow: #00d4ff;
+            --secondary-glow: #0055ff;
+            --dark-bg: #000814;
+        }
+        
+        .navbar {
+            background: rgba(0, 8, 20, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: none;
+            padding: 0.8rem 0;
+        }
+
+        .navbar-brand .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-brand .logo span {
+            color: #ff0055;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2px; /* Reducido de 0.5px */
+            transition: all 0.3s ease;
+            margin: 0 3px; /* Reducido de 5px */
+            color: #ffffff !important;
+            font-weight: bold;
+            white-space: nowrap; /* Fuerza una sola línea */
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-glow) !important; /* Cambio a cian al pasar el mouse */
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-logout {
+            background: linear-gradient(45deg, #ff0055, #ff00aa);
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+            color: white !important;
+        }
+
+        /* Redes Sociales Sidebar */
+        .social-sidebar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--primary-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-glow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-glow);
+            color: #000;
+            transform: scale(1.2) translateX(5px);
+        }
+
+        /* Onda Curva del Header */
+        .svg-wave-header {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            margin-top: -1px; 
+            position: absolute;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .svg-wave-header svg {
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        .svg-wave-header .wave-bg {
+            fill: rgba(0, 8, 20, 0.95);
+        }
+        .svg-wave-header .wave-line {
+            fill: none;
+            stroke: var(--primary-glow);
+            stroke-width: 3;
+            filter: drop-shadow(0px 2px 5px rgba(0, 212, 255, 0.6));
+        }
+    </style>
+</head>
+<body>
+    <!-- Redes Sociales Sidebar -->
+    <div class="social-sidebar d-none d-lg-flex">
+        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <!-- Navbar Bootstrap -->
+    <nav class="navbar navbar-expand-xl sticky-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="home.html">
+                <img src="./public/img/logo1OK.png" alt="Logo" width="80" height="60" class="me-2">
+                <div class="logo">HASH<span>WAR</span></div>
+            </a>
+
+            <button class="navbar-toggler border-info" type="button" data-bs-toggle="collapse" data-bs-target="#hashwarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="hashwarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gameplay.html">Gameplay</a></li>
+                    <li class="nav-item"><a class="nav-link" href="paquetes.html">Paquetes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="quienes_somos.html">Quiénes Somos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="servicios.html">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item ms-xl-3">
+                        <a class="btn btn-logout" href="inicio.html">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Onda Decorativa -->
+    <div class="svg-wave-header">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path class="wave-bg" d="M0,0 L500,0 L500,80 C350,150 150,-20 0,100 Z"></path>
+            <path class="wave-line" d="M500,80 C350,150 150,-20 0,100"></path>
+        </svg>
+    </div>
+
+    <section class="services-enhanced py-5" style="padding-top: 90px !important;">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" style="color: #00d4ff; font-family: 'Orbitron', sans-serif;">NUESTROS SERVICIOS</h2>
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="service-card p-4" style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid #00d4ff;">
+                        <div class="fs-1 mb-3">⚙️</div>
+                        <h3>CONSULTORÍA</h3>
+                        <p>Optimización de Rigs y ASICs, análisis de rentabilidad y soporte técnico.</p>
+                        <a href="contacto.html" class="btn btn-outline-info">CONSULTAR</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card p-4 border border-info border-3" style="background: rgba(0, 212, 255, 0.1); border-radius: 20px; transform: scale(1.05);">
+                        <div class="fs-1 mb-3">🎓</div>
+                        <h3>ACADEMIA NOVATO</h3>
+                        <p>Fundamentos Blockchain, Minería de Bitcoin y manejo de billeteras.</p>
+                        <a href="./public/academia/index.html" class="btn btn-info">EMPEZAR</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card p-4" style="background: rgba(255, 255, 255, 0.03); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); opacity: 0.6;">
+                        <div class="fs-1 mb-3">⚡</div>
+                        <h3>AVANZADO</h3>
+                        <p>Inversión profesional y Smart Contracts (Próximamente).</p>
+                        <button class="btn btn-secondary" disabled>BLOQUEADO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer bg-black py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2026 HASHWAR: Rise of the Miners. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* Estilos Marketplace - Migrados de v3.2 */
+.marketplace {
+    background: linear-gradient(135deg, #001122, #003344);
+    padding: 80px 0;
+}
+
+.marketplace-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--primary);
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--light);
+    padding: 15px 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card {
+    background: linear-gradient(135deg, #002244, #004466);
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    border-color: var(--accent);
+}
+
+.product-img {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img img {
+    transform: scale(1.1);
+}
+
+.product-info {
+    padding: 25px;
+    text-align: center;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.product-price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(247, 147, 26, 0.3);
+}
+
+.product-card .btn {
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Estilos Próximamente */
+.product-card.coming-soon {
+    position: relative;
+    filter: grayscale(0.6);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.coming-soon-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    background: linear-gradient(45deg, #ff0055, #ff00aa);
+    color: white;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    z-index: 5;
+    border: 2px solid white;
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.product-card .btn:disabled {
+    background: #444 !important;
+    border-color: #666 !important;
+    color: #888 !important;
+    cursor: not-allowed;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .marketplace-tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .tab-btn {
+        padding: 10px;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    
+    .tab-btn.active::after {
+        display: none;
+    }
+}

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASHWAR: Rise of the Miners</title>
+  
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./public/css/styles.css">
+    
+    <style>
+        :root {
+            --primary-glow: #00d4ff;
+            --secondary-glow: #0055ff;
+            --dark-bg: #000814;
+        }
+        
+        .navbar {
+            background: rgba(0, 8, 20, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: none;
+            padding: 0.8rem 0;
+        }
+
+        .navbar-brand .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-brand .logo span {
+            color: #ff0055;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2px; /* Reducido de 0.5px */
+            transition: all 0.3s ease;
+            margin: 0 3px; /* Reducido de 5px */
+            color: #ffffff !important;
+            font-weight: bold;
+            white-space: nowrap; /* Fuerza una sola línea */
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-glow) !important; /* Cambio a cian al pasar el mouse */
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-logout {
+            background: #f7e11a;
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: 800;
+            color: #000 !important;
+            box-shadow: 0 0 15px rgba(247, 225, 26, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(247, 225, 26, 0.5);
+            color: #000 !important;
+        }
+
+        /* Redes Sociales Sidebar */
+        .social-sidebar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--primary-glow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-glow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-glow);
+            color: #000;
+            transform: scale(1.2) translateX(5px);
+        }
+
+        /* Onda Curva del Header */
+        .svg-wave-header {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            margin-top: -1px; 
+            position: absolute;
+            left: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .svg-wave-header svg {
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+        .svg-wave-header .wave-bg {
+            fill: rgba(0, 8, 20, 0.95);
+        }
+        .svg-wave-header .wave-line {
+            fill: none;
+            stroke: var(--primary-glow);
+            stroke-width: 3;
+            filter: drop-shadow(0px 2px 5px rgba(0, 212, 255, 0.6));
+        }
+    </style>
+</head>
+<body>
+    <!-- Redes Sociales Sidebar -->
+    <div class="social-sidebar d-none d-lg-flex">
+        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <!-- Navbar Bootstrap -->
+    <nav class="navbar navbar-expand-xl sticky-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="home.html">
+                <img src="./public/img/logo1OK.png" alt="Logo" width="80" height="60" class="me-2">
+                <div class="logo">HASH<span>WAR</span></div>
+            </a>
+
+            <button class="navbar-toggler border-info" type="button" data-bs-toggle="collapse" data-bs-target="#hashwarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="hashwarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="home.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gameplay.html">Gameplay</a></li>
+                    <li class="nav-item"><a class="nav-link" href="paquetes.html">Paquetes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="quienes_somos.html">Quiénes Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicios.html">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item ms-xl-3">
+                        <a class="btn btn-logout" href="inicio.html">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Onda Decorativa -->
+    <div class="svg-wave-header">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path class="wave-bg" d="M0,0 L500,0 L500,80 C350,150 150,-20 0,100 Z"></path>
+            <path class="wave-line" d="M500,80 C350,150 150,-20 0,100"></path>
+        </svg>
+    </div>
+
+<section class="hero" id="home" style="padding-top: 60px !important; padding-bottom: 40px !important;">
+    <div class="container">
+        <!-- Carrusel -->
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Slide 1 -->
+                <div class="carousel-slide">
+                    <a href="./gameplay.html">
+                        <img src="./public/img/logo_principal.jpeg" alt="Gameplay HASHWAR">
+                        <div class="slide-content">
+                            <p>Startup ganadora de LaPazTec del Bicentenario - GAMLP</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide">
+                    <a href="./paquetes.html">
+                        <img src="./public/img/batallasok.jpeg" alt="Granja de Minería">
+                        <div class="slide-content">
+                            <h3>Economía Blockchain Integrada</h3>
+                            <p>Minería real que potencia tu ejército en el juego</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide">
+                    <img src="./public/img/carrucel.jpeg" alt="NFTs Exclusivos">
+                    <div class="slide-content">
+                        <h3>NFTs con Utilidad Real</h3>
+                        <p>Colecciona activos que mejoran tu experiencia de juego</p>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="carousel-slide">
+                    <img src="./public/img/entornook.jpeg" alt="Torneos Profesionales">
+                    <div class="slide-content">
+                        <h3>Torneos Profesionales</h3>
+                        <p>Compite por premios en criptomonedas reales</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn" id="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel-indicators" id="indicators"></div>
+        </div>
+        
+        <h1 class="title-gradient main-title">HASHWAR: Rise of the Miners</h1>
+        <p class="subtitle typing-text">El primer RTS estratégico que combina juego competitivo con minería real de criptomonedas.</p>
+        
+        <div class="hero-btns">
+            <a href="./public/academia/index.html" class="btn btn-accent">☢️ Academia HASHWAR</a>
+            <a href="./public/gameplay/index.html" class="btn btn-secondary">🎮 GamePlay V.A.0.1.0</a>
+            <a href="#" class="btn btn-primary">💲 Hash Criptonativa</a>
+        </div>
+    </div>
+</section>
+
+<!-- Roadmap Section -->
+<section class="roadmap-section py-5" id="roadmap">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" style="font-family: 'Orbitron', sans-serif; color: var(--primary-glow);">ROADMAP ESTRATÉGICO</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item completed">
+                <div class="timeline-date">DIC 2025</div>
+                <div class="timeline-content">
+                    <h4>LANZAMIENTO ALPHA</h4>
+                    <ul>
+                       <li>✅ Core gameplay 2D RTS</li>
+                       <li>✅ Lanzamiento Academia</li>
+                       <li>✅ Marketplace NFT v1</li>
+                       <li>✅ Primeras batallas</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-item current">
+                <div class="timeline-date">JUL 2026</div>
+                <div class="timeline-content">
+                    <h4>LANZAMIENTO BETA</h4>
+                    <ul>
+                        <li>🔄 Core gameplay 3D RTS</li>
+                        <li>🔄 Sistema de torneos</li>
+                        <li>🔄 App móvil</li>
+                        <li>🔄 Multi-chain</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="timeline-item future">
+                <div class="timeline-date">ENE 2027</div>
+                <div class="timeline-content">
+                    <h4>LANZAMIENTO OFICIAL</h4>
+                    <ul>
+                        <li>⚡ Cross-platform play</li>
+                        <li>⚡ Reality Show competitivo</li>
+                        <li>⚡ DAO de gobierno</li>
+                        <li>⚡ Esports profesional</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Paquetes -->
+<section class="packages py-5" id="packages">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" style="font-family: 'Orbitron', sans-serif; color: var(--primary-glow);">NUESTROS PAQUETES</h2>
+        <div class="row g-4">
+            <!-- Nivel 1 - Gratis -->
+            <div class="col-md-4">
+                <div class="package-card p-4 h-100 text-center" style="background: rgba(0, 31, 58, 0.5); border: 1px solid var(--primary-glow); border-radius: 15px;">
+                    <h3 class="package-name">Academia</h3>
+                    <div class="package-price my-3 fs-2 fw-bold" style="color: var(--primary-glow);">GRATIS</div>
+                    <ul class="list-unstyled mb-4 text-start">
+                        <li><i class="fas fa-check text-success me-2"></i> Acceso al juego base</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Tutoriales de minería</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Soporte básico</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Contenido educativo</li>
+                    </ul>
+                    <a href="./public/academia/index.html" class="btn btn-outline-info w-100">COMENZAR GRATIS</a>
+                </div>
+            </div>
+            
+            <!-- Nivel 2 - Pro -->
+            <div class="col-md-4">
+                <div class="package-card p-4 h-100 text-center featured coming-soon" style="background: rgba(0, 50, 100, 0.6); border: 2px solid #ff0055; border-radius: 15px;">
+                    <div class="package-coming-soon-overlay">Próximamente</div>
+                    <h3 class="package-name">Pro (Nivel 3-4)</h3>
+                    <div class="package-price my-3 fs-2 fw-bold" style="color: #ff0055;">$7.99</div>
+                    <ul class="list-unstyled mb-4 text-start">
+                        <li><i class="fas fa-check text-success me-2"></i> Acceso a Pool de Minería</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Hasta 2 GPUs conectadas</li>
+                        <li><i class="fas fa-check text-success me-2"></i> NFTs exclusivos</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Torneos con premios</li>
+                    </ul>
+                    <button class="btn btn-secondary w-100" disabled>BLOQUEADO</button>
+                </div>
+            </div>
+
+            <!-- Nivel 3 - Elite -->
+            <div class="col-md-4">
+                <div class="package-card p-4 h-100 text-center coming-soon" style="background: rgba(0, 31, 58, 0.5); border: 1px solid var(--primary-glow); border-radius: 15px;">
+                    <div class="package-coming-soon-overlay">Próximamente</div>
+                    <h3 class="package-name">Elite (Nivel 5)</h3>
+                    <div class="package-price my-3 fs-2 fw-bold" style="color: var(--primary-glow);">$17.99</div>
+                    <ul class="list-unstyled mb-4 text-start">
+                        <li><i class="fas fa-check text-success me-2"></i> Todo lo del nivel Pro</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Hasta 8 GPUs conectadas</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Asesor de minería personal</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Acceso VIP a eventos</li>
+                    </ul>
+                    <button class="btn btn-secondary w-100" disabled>BLOQUEADO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Marketplace Section -->
+<link rel="stylesheet" href="./public/css/marketplace_v32.css">
+<section class="marketplace py-5" id="marketplace">
+    <div class="container">
+        <h2 class="section-title text-center mb-2" style="font-family: 'Orbitron', sans-serif;">MARKETPLACE EXCLUSIVO</h2>
+        <p class="text-center text-info mb-5" style="font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">ESTRENO PRÓXIMAMENTE</p>
+
+        <div class="marketplace-tabs mb-5">
+            <button class="tab-btn active" data-tab="merchandise">Merchandise</button>
+            <button class="tab-btn" data-tab="nfts">NFTs</button>
+            <button class="tab-btn" data-tab="mining-equipment">Equipo de Minería</button>
+        </div>
+
+        <!-- Merchandise Tab -->
+        <div class="tab-content active" id="merchandise-tab">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/poster.jpeg" alt="Poster HASHWAR">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Poster HASHWAR</h3>
+                            <div class="product-price">$14.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/polera.jpeg" alt="Polera HASHWAR">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Polera HASHWAR</h3>
+                            <div class="product-price">$29.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/caguro.jpeg" alt="Canguro HASHWAR">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Canguro HASHWAR</h3>
+                            <div class="product-price">$39.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/combo1.jpeg" alt="Combo HASHWAR">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Combo HASHWAR</h3>
+                            <div class="product-price">$79.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NFTs Tab -->
+        <div class="tab-content" id="nfts-tab">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/minero lej.jpeg" alt="NFT Legendario">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Minero Legendario</h3>
+                            <div class="product-price">0.05 ETH</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/3.jpeg" alt="NFT Épico">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">GPU Épica</h3>
+                            <div class="product-price">0.03 ETH</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/6.jpeg" alt="NFT Raro">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Hash Boost Raro</h3>
+                            <div class="product-price">0.01 ETH</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/2.jpeg" alt="NFT Pro">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Hash Boost Pro</h3>
+                            <div class="product-price">0.02 ETH</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mining Equipment Tab -->
+        <div class="tab-content" id="mining-equipment-tab">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/rog.jpg" alt="GPU RTX 3060">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">GPU RTX 3060 Ti</h3>
+                            <div class="product-price">$549.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/rig.jpg" alt="Mining Rig">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Rig Profesional 6x</h3>
+                            <div class="product-price">$3,200.00</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/asic.jpg" alt="ASIC S19">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Antminer S19 Pro</h3>
+                            <div class="product-price">$2,450.00</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-card coming-soon">
+                        <div class="coming-soon-overlay">Próximamente</div>
+                        <div class="product-img">
+                            <img src="./public/img/hydro.jpg" alt="Hydro Cooling">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Sistema Hydro Cooling</h3>
+                            <div class="product-price">$899.99</div>
+                            <button class="btn btn-secondary" disabled>Bloqueado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AWS Section -->
+<section class="aws-award-section py-5 bg-dark" id="about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="./public/img/18.jpeg" class="img-fluid rounded shadow-lg border border-info" alt="Premio AWS">
+            </div>
+            <div class="col-md-6 ps-md-5">
+                <div class="aws-badge mb-3"><i class="fas fa-trophy text-warning"></i> PREMIO OFICIAL</div>
+                <h3 class="mb-4">Ganador de LaPazTec del Bicentenario</h3>
+                <div class="aws-amount display-4 fw-bold text-info mb-3">$5,000</div>
+                <p>Créditos en Amazon Web Services otorgados por el Gobierno Autónomo Municipal de La Paz para potenciar nuestra infraestructura en la nube.</p>
+                <div class="d-flex gap-3 mt-4">
+                    <button class="btn btn-info">Ver Cheque</button>
+                    <a href="https://aws.amazon.com" target="_blank" class="btn btn-outline-light">Visitar AWS</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <!-- Sección de Certificados y Reconocimientos -->
+    <div class="certifications-section">
+        <div class="container text-center">
+            <h4 class="cert-title">Certificados y reconocimientos por:</h4>
+            <div class="certification-logos">
+                <div class="cert-logo">
+                    <img src="./public/img/alca.png" alt="ALCA">
+                </div>
+                <div class="cert-logo">
+                    <img src="./public/img/ucb.png" alt="UCB">
+                </div>
+                <div class="cert-logo">
+                    <img src="./public/img/LOGO-CEMSE.png" alt="CEMSE">
+                </div>
+                <div class="cert-logo">
+                    <img src="./public/img/ita.png" alt="ITA">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sección de Ubicación con Mapa -->
+    <div class="location-section">
+        <div class="container">
+            <h4 class="location-title">
+                <i class="fas fa-map-marker-alt"></i> NUESTRA UBICACIÓN
+            </h4>
+            <div class="location-content">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d568.709423272216!2d-68.12416073173321!3d-16.485372124900177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sbo!4v1768081592720!5m2!1ses-419!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="location-marker">
+                        <div class="marker-pulse"></div>
+                        <div class="marker-core"></div>
+                    </div>
+                </div>
+                <div class="location-info-compact">
+                    <div class="info-item-compact">
+                        <i class="fas fa-city"></i>
+                        <div>
+                            <h5>La Paz, Bolivia</h5>
+                            <p>Zona Alto Miraflores</p>
+                            <p>Av. Tejada Sorzano c/J. de la Cruz Monje Nº22</p>
+                        </div>
+                    </div>
+                    <div class="info-item-compact">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h5>Horarios</h5>
+                            <p>Lun-Vie: 9:00 - 18:00</p>
+                            <p>Sáb: 10:00 - 14:00</p>
+                        </div>
+                    </div>
+                    <div class="info-item-compact">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h5>Contacto</h5>
+                            <p>+591 62448181</p>
+                            <p>info@hashwar.com</p>
+                        </div>
+                    </div>
+                    <a href="https://goo.gl/maps/" target="_blank" class="btn-directions-compact">
+                        <i class="fas fa-directions"></i> CÓMO LLEGAR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contenido principal del footer -->
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Columna 1: Sobre HASHWAR -->
+            <div class="footer-col">
+                <h3><i class="fas fa-gamepad"></i> HASHWAR</h3>
+                <p>La revolución del gaming y la minería de criptomonedas. Únete a nuestra comunidad y comienza a minar mientras juegas.</p>
+                
+                <div class="simple-payment-methods">
+                    <p class="payment-label"><i class="fas fa-credit-card"></i> Aceptamos:</p>
+                    <div class="payment-icons-mini">
+                        <div class="payment-icon-mini" title="USDT"><i class="fab fa-usd"></i></div>
+                        <div class="payment-icon-mini" title="Bitcoin"><i class="fab fa-bitcoin"></i></div>
+                        <div class="payment-icon-mini" title="Ethereum"><i class="fab fa-ethereum"></i></div>
+                        <div class="payment-icon-mini" title="PayPal"><i class="fab fa-paypal"></i></div>
+                        <div class="payment-icon-mini" title="Transferencia"><i class="fas fa-university"></i></div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/hashwarriseoftheminers/" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Columna 2: Enlaces -->
+            <div class="footer-col">
+                <h3><i class="fas fa-bolt"></i> ENLACES</h3>
+                <ul class="footer-links">
+                    <li><a href="home.html">Inicio</a></li>
+                    <li><a href="gameplay.html">Gameplay</a></li>
+                    <li><a href="paquetes.html">Paquetes</a></li>
+                    <li><a href="quienes_somos.html">Nosotros</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <!-- Columna 3: Legal -->
+            <div class="footer-col">
+                <h3><i class="fas fa-gavel"></i> LEGAL</h3>
+                <ul class="footer-links">
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                    <li><a href="privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="cookies.html">Política de Cookies</a></li>
+                    <li><a href="aviso_legal.html">Aviso Legal</a></li>
+                </ul>
+            </div>
+            
+            <!-- Columna 4: Newsletter -->
+            <div class="footer-col">
+                <h3><i class="fas fa-envelope"></i> NEWSLETTER</h3>
+                <p>Recibe las últimas noticias y actualizaciones de HASHWAR.</p>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <input type="email" placeholder="Tu email" required>
+                        <i class="fas fa-at"></i>
+                    </div>
+                    <button type="submit" class="btn-newsletter">
+                        <i class="fas fa-paper-plane"></i> SUSCRIBIRSE
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Línea divisora -->
+        <div class="footer-divider">
+            <div class="divider-line"></div>
+            <div class="divider-logo"><i class="fas fa-gamepad"></i></div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-section">
+            <p>&copy; 2026 HASHWAR: Rise of the Miners. Todos los derechos reservados.</p>
+            <div class="footer-badges">
+                <span class="badge"><i class="fas fa-lock"></i> SITIO SEGURO</span>
+                <span class="badge"><i class="fas fa-bolt"></i> ALTA DISPONIBILIDAD</span>
+                <span class="badge"><i class="fas fa-users"></i> COMUNIDAD ACTIVA</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* ===== ESTILOS BASE FOOTER v3.9 ===== */
+    .main-footer {
+        background: linear-gradient(180deg, #0a1929 0%, #000000 100%);
+        color: #e0f7ff;
+        border-top: 2px solid #00d4ff;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Certificados */
+    .certifications-section {
+        background: rgba(0, 10, 20, 0.4);
+        padding: 40px 0;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    }
+    .cert-title {
+        color: #00d4ff;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 35px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+    .certification-logos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    .cert-logo {
+        width: 200px;
+        height: 110px;
+        background: rgba(0, 20, 40, 0.6);
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        transition: all 0.4s ease;
+    }
+    .cert-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+    .cert-logo:hover {
+        background: #ffffff !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Ubicación y Mapa */
+    .location-section {
+        padding: 50px 0;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    }
+    .location-title {
+        color: #00d4ff;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .location-content {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 30px;
+    }
+    .map-container {
+        border-radius: 15px;
+        overflow: hidden;
+        position: relative;
+        height: 300px;
+        border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+    
+    .location-info-compact {
+        background: rgba(0, 15, 30, 0.5);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 15px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .info-item-compact {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    .info-item-compact i { color: #00d4ff; font-size: 1.2rem; margin-top: 5px; }
+    .info-item-compact h5 { color: #00d4ff; margin-bottom: 5px; font-size: 1rem; }
+    .info-item-compact p { font-size: 0.9rem; color: #b0d4ff; margin: 0; }
+    
+    .btn-directions-compact {
+        background: linear-gradient(135deg, #00d4ff, #0066cc);
+        color: white;
+        text-decoration: none;
+        padding: 12px;
+        text-align: center;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .btn-directions-compact:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4); color: white; }
+
+    /* Grid de Contenido */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        padding: 60px 0;
+    }
+    .footer-col h3 {
+        color: #00d4ff;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+    .footer-col p { font-size: 0.9rem; color: #b0d4ff; line-height: 1.6; }
+
+    /* Enlaces */
+    .footer-links { list-style: none; padding: 0; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { color: #b0d4ff; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+    .footer-links a:hover { color: #00d4ff; padding-left: 8px; }
+
+    /* Social y Pagos */
+    .social-links { display: flex; gap: 15px; margin-top: 20px; }
+    .social-link {
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 212, 255, 0.1);
+        border: 1px solid rgba(0, 212, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00d4ff;
+        transition: 0.3s;
+    }
+    .social-link:hover { background: #00d4ff; color: black; transform: translateY(-3px); }
+
+    .payment-icons-mini { display: flex; gap: 10px; margin-top: 10px; }
+    .payment-icon-mini { font-size: 1.5rem; color: #b0d4ff; opacity: 0.7; transition: 0.3s; }
+    .payment-icon-mini:hover { color: #00d4ff; opacity: 1; transform: scale(1.2); }
+
+    /* Newsletter */
+    .newsletter-form .form-group { position: relative; margin-bottom: 15px; }
+    .newsletter-form input {
+        width: 100%;
+        padding: 12px 40px 12px 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+    }
+    .newsletter-form i { position: absolute; right: 15px; top: 15px; color: #00d4ff; }
+    .btn-newsletter {
+        width: 100%;
+        padding: 12px;
+        background: #00d4ff;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-newsletter:hover { background: #00aacc; transform: scale(1.02); }
+
+    /* Divider */
+    .footer-divider { position: relative; margin: 40px 0; text-align: center; }
+    .divider-line { height: 1px; background: linear-gradient(90deg, transparent, #00d4ff, transparent); }
+    .divider-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #0a1929;
+        padding: 0 15px;
+        color: #00d4ff;
+        font-size: 1.5rem;
+    }
+
+    /* Copyright */
+    .copyright-section { text-align: center; padding-bottom: 30px; }
+    .copyright-section p { font-size: 0.85rem; color: #b0d4ff; }
+    .footer-badges { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+    .badge {
+        padding: 6px 15px;
+        background: rgba(0, 212, 255, 0.1);
+        border: 1px solid rgba(0, 212, 255, 0.3);
+        border-radius: 20px;
+        font-size: 0.75rem;
+        color: #00d4ff;
+    }
+
+    @media (max-width: 768px) {
+        .location-content { grid-template-columns: 1fr; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+</style>
+
+<!-- Bootstrap 5.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Efecto de Partículas Dinámicas ---
+    const particlesContainer = document.getElementById('particles-container');
+    const cryptoContainer = document.getElementById('crypto-floating');
+    
+    if (particlesContainer) {
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.background = Math.random() > 0.5 ? '#00d4ff' : '#ff0055';
+            particle.style.animationDelay = `${Math.random() * 15}s`;
+            particle.style.opacity = Math.random() * 0.5;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    if (cryptoContainer) {
+        const coins = ['₿', 'Ξ', '₮', '₿', 'Ξ'];
+        coins.forEach((symbol, index) => {
+            const coin = document.createElement('div');
+            coin.className = 'crypto-coin';
+            coin.textContent = symbol;
+            coin.style.left = `${(index + 1) * 15}%`;
+            coin.style.animationDelay = `${index * 4}s`;
+            coin.style.fontSize = `${Math.random() * 20 + 20}px`;
+            cryptoContainer.appendChild(coin);
+        });
+    }
+
+    // --- Efecto de Escritura (Typing) ---
+    const typingText = document.querySelector('.typing-text');
+    if (typingText) {
+        const text = typingText.textContent;
+        typingText.textContent = '';
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                typingText.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 30);
+            }
+        }
+        setTimeout(type, 1000);
+    }
+});
+</script>
+
+<script src="./public/js/home.js"></script>
+<script src="./public/js/marketplace.js"></script>
+</body>
+</html>

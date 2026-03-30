@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASHWAR ACADEMY - Universidad Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --uni-purple: #8a2be2; --uni-dark: #050010; --neon-blue: #00d4ff; }
+        body { background: var(--uni-dark); overflow-x: hidden; }
+        
+        #auth-overlay {
+            position: fixed; inset: 0; background: var(--uni-dark); z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: var(--uni-purple); text-align: center; font-family: 'Orbitron', sans-serif;
+        }
+        .loader-circle {
+            width: 120px; height: 120px; border: 4px solid rgba(138, 43, 226, 0.1);
+            border-top: 4px solid var(--uni-purple); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 30px;
+            box-shadow: 0 0 20px var(--uni-purple);
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .month-selector { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; }
+        .month-card {
+            background: rgba(138, 43, 226, 0.05); border: 1px solid var(--uni-purple);
+            padding: 15px 30px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+        }
+        .month-card.active { background: var(--uni-purple); box-shadow: 0 0 25px var(--uni-purple); color: white; }
+        
+        .week-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
+        .week-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(138, 43, 226, 0.2);
+            padding: 12px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.3s; font-size: 0.8rem;
+        }
+        .week-card.active { border-color: var(--uni-purple); box-shadow: 0 0 15px var(--uni-purple); background: rgba(138, 43, 226, 0.1); }
+
+        .content-box { 
+            background: rgba(0, 0, 0, 0.9); padding: 40px; border-radius: 20px; 
+            border: 1px solid var(--uni-purple); min-height: 550px; position: relative;
+            box-shadow: inset 0 0 50px rgba(138, 43, 226, 0.1);
+        }
+        .lesson-header { border-bottom: 1px solid var(--uni-purple); margin-bottom: 25px; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .data-block { 
+            background: rgba(138, 43, 226, 0.05); border-left: 4px solid var(--uni-purple); 
+            padding: 20px; margin: 20px 0; animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(-20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .quiz-progress { display: flex; gap: 8px; margin-bottom: 25px; }
+        .prog-dot { flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; transition: 0.3s; position: relative; }
+        .prog-dot.active { background: var(--uni-purple); box-shadow: 0 0 15px var(--uni-purple); }
+        .prog-dot.done { background: var(--success); }
+
+        .quiz-option { 
+            background: rgba(255, 255, 255, 0.05); padding: 18px; margin: 12px 0; 
+            border-radius: 12px; cursor: pointer; transition: 0.2s; border: 1px solid transparent;
+            display: flex; align-items: center; gap: 15px; font-size: 1rem;
+        }
+        .quiz-option:hover { background: rgba(138, 43, 226, 0.15); border-color: var(--uni-purple); }
+        .quiz-option.correct { background: rgba(0, 255, 136, 0.2) !important; border-color: var(--success) !important; }
+        .quiz-option.wrong { background: rgba(255, 68, 68, 0.2) !important; border-color: var(--danger) !important; }
+
+        .btn-glow-purple { 
+            background: var(--uni-purple) !important; color: white !important; 
+            box-shadow: 0 0 20px var(--uni-purple) !important; padding: 15px 40px !important;
+        }
+    </style>
+</head>
+<body onload="startAuth()">
+
+    <div id="auth-overlay">
+        <div class="loader-circle"></div>
+        <h1 class="hero-glitch" data-text="TERMINAL UNIVERSITARIA">TERMINAL UNIVERSITARIA</h1>
+        <p>SINCRONIZANDO NODOS DE APRENDIZAJE...</p>
+        <div style="width: 250px; height: 4px; background: rgba(255,255,255,0.1); margin-top: 20px; border-radius: 2px; overflow: hidden;">
+            <div id="auth-bar" style="width: 0%; height: 100%; background: var(--uni-purple); transition: 0.1s linear;"></div>
+        </div>
+        <h2 id="auth-timer" style="margin-top: 15px;">5.0s</h2>
+    </div>
+
+    <div class="hash-vault">
+        <i class="fas fa-coins hash-icon"></i>
+        <span class="hash-balance" id="global-hash">0</span>
+        <span style="color: var(--gold); font-size: 0.8rem;">$HASH</span>
+    </div>
+
+    <div id="reward-popup" class="reward-popup">+ <span id="reward-amount">0</span> $HASH GANADOS</div>
+
+    <a href="index.html" class="btn btn-secondary back-btn" style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
+        <i class="fas fa-arrow-left"></i> VOLVER AL HUB
+    </a>
+
+    <header class="hero-banner" style="min-height: 20vh;">
+        <h1 class="hero-glitch" data-text="UNIVERSIDAD PRO">UNIVERSIDAD PRO</h1>
+        <p class="hero-subtitle">Ciclo de Maestría: 12 Semanas • 84 Lecciones • 84 Desafíos</p>
+    </header>
+
+    <div class="container pb-5">
+        <div class="month-selector">
+            <div class="month-card active" id="m-btn-1" onclick="selectMonth(1)">MES 1</div>
+            <div class="month-card" id="m-btn-2" onclick="selectMonth(2)">MES 2</div>
+            <div class="month-card" id="m-btn-3" onclick="selectMonth(3)">MES 3</div>
+        </div>
+        <div class="week-grid" id="week-selector"></div>
+        <div id="uni-display" class="content-box">
+            <div id="lesson-area"></div>
+            <div id="quiz-area" style="display: none; border-top: 1px solid var(--uni-purple); margin-top: 30px; padding-top: 30px;">
+                <div id="quiz-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userHash = parseInt(localStorage.getItem('userHash')) || 0;
+        let uniQuizzesDone = JSON.parse(localStorage.getItem('uniQuizzesDone')) || {};
+
+        function startAuth() {
+            let timeLeft = 5.0;
+            const bar = document.getElementById('auth-bar');
+            const timerTxt = document.getElementById('auth-timer');
+            const interval = setInterval(() => {
+                timeLeft -= 0.1;
+                bar.style.width = ((5.0 - timeLeft) / 5.0) * 100 + "%";
+                timerTxt.innerText = Math.max(0, timeLeft).toFixed(1) + "s";
+                if(timeLeft <= 0) {
+                    clearInterval(interval);
+                    document.getElementById('auth-overlay').style.display = 'none';
+                }
+            }, 100);
+        }
+
+        const uniDB = {
+            1: [ // MES 1: Fundamentos y Arquitectura
+                {
+                    title: "Semana 1: Dinero e Inflación",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Escasez Histórica</h3><p>El oro dominó por su escasez física. Bitcoin replica esto digitalmente.</p>", q: "¿Por qué el oro fue dinero?", opts: ["Brillo", "Escasez y durabilidad", "Peso"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: El Fallo Fiat</h3><p>La impresión infinita destruye el ahorro.</p>", q: "¿Qué causa la inflación?", opts: ["Ahorro", "Impresión masiva", "Bancos"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Efecto Cantillon</h3><p>El dinero nuevo beneficia primero a los ricos.</p>", q: "¿Quién gana con dinero nuevo?", opts: ["Pobres", "Bancos/Gobierno", "Nadie"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Crisis 2008</h3><p>Bitcoin nace del colapso bancario.</p>", q: "¿Año del Whitepaper?", opts: ["2000", "2008", "2010"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Límite 21M</h3><p>Bitcoin tiene escasez digital absoluta.</p>", q: "¿Suministro máximo?", opts: ["100M", "21M", "Infinito"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Descentralización</h3><p>Sin jefe, solo nodos validando reglas.</p>", q: "¿Quién manda?", opts: ["Satoshi", "Nadie (Red de nodos)", "Bancos"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Programabilidad</h3><p>Dinero que es código puro.</p>", q: "¿Bitcoin es?", opts: ["Metal", "Código programable", "Papel"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 2: Protocolo Bitcoin",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Whitepaper</h3><p>Estudio del documento de Satoshi.</p>", q: "¿Qué propuso Satoshi?", opts: ["Un banco", "Sistema P2P electrónico", "Una web"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Claves Privadas</h3><p>Tu firma matemática única.</p>", q: "¿Para qué sirve?", opts: ["Ver saldo", "Firmar gastos", "Hackear"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Claves Públicas</h3><p>Tu dirección de recepción.</p>", q: "¿Se puede compartir?", opts: ["No", "Sí, es tu dirección", "A veces"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Modelo UTXO</h3><p>Salidas no gastadas de TX.</p>", q: "¿Qué es UTXO?", opts: ["Virus", "Salidas no gastadas", "Nodo"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Nodos Completos</h3><p>Guardianes de las reglas.</p>", q: "¿Qué hacen?", opts: ["Venden BTC", "Validan TXs", "Cargan web"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Firmas Digitales</h3><p>Prueba de propiedad criptográfica.</p>", q: "¿Son seguras?", opts: ["No", "Sí, son matemáticas", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Pseudonimato</h3><p>Privacidad sin ser 100% anónimo.</p>", q: "¿Bitcoin es?", opts: ["Anónimo", "Pseudónimo", "Público"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 3: Blockchain Técnica",
+                    days: [
+                        { lesson: "<h3>DÍA 1: El Bloque</h3><p>Contenedor de transacciones.</p>", q: "¿Qué es un bloque?", opts: ["Archivo de TXs", "Piedra", "Virus"], correct: 0 },
+                        { lesson: "<h3>DÍA 2: Hash SHA-256</h3><p>La huella digital del dato.</p>", q: "¿Algoritmo BTC?", opts: ["MD5", "SHA-256", "AES"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Encadenamiento</h3><p>Cada bloque apunta al anterior.</p>", q: "¿Cómo se unen?", opts: ["Cables", "Hash anterior", "Pegamento"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Mempool</h3><p>Sala de espera de TXs.</p>", q: "¿Dónde esperan?", opts: ["Blockchain", "Mempool", "Wallet"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Merkle Root</h3><p>Resumen de un bloque.</p>", q: "¿Qué resume?", opts: ["Precios", "Todas las TXs", "Nombres"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Inmutabilidad</h3><p>Imposible de cambiar.</p>", q: "¿Se puede modificar?", opts: ["Sí", "No, matemáticamente", "A veces"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Timestamp</h3><p>Marca de tiempo inalterable.</p>", q: "¿Para qué sirve?", opts: ["Decorar", "Prueba de existencia", "Color"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 4: Consenso y Trilema",
+                    days: [
+                        { lesson: "<h3>DÍA 1: PoW</h3><p>Seguridad por trabajo real.</p>", q: "¿Qué es PoW?", opts: ["Prueba Participación", "Prueba Trabajo", "Pago"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: PoS</h3><p>Seguridad por tenencia.</p>", q: "¿Qué es PoS?", opts: ["Participación", "Trabajo", "Poder"], correct: 0 },
+                        { lesson: "<h3>DÍA 3: El Trilema</h3><p>El reto de 3 pilares.</p>", q: "¿Cuáles son?", opts: ["S/E/D", "Oro/Plata", "Gente"], correct: 0 },
+                        { lesson: "<h3>DÍA 4: Descentralización</h3><p>Pilar de la libertad.</p>", q: "¿Es vital?", opts: ["No", "Sí, evita control", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Escalabilidad</h3><p>Velocidad de TXs.</p>", q: "¿Qué es?", opts: ["Precio", "Capacidad carga", "Color"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Seguridad</h3><p>Blindaje matemático.</p>", q: "¿Es hackeable?", opts: ["Fácil", "Prácticamente imposible", "Sí"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Nodos Validadores</h3><p>Jueces del consenso.</p>", q: "¿Qué hacen?", opts: ["Venden", "Hacen cumplir reglas", "Nada"], correct: 1 }
+                    ]
+                }
+            ],
+            2: [ // MES 2: Ecosistemas y Minería
+                {
+                    title: "Semana 5: Tokens y Smart Contracts",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Smart Contracts</h3><p>Código autoejecutable.</p>", q: "¿Qué son?", opts: ["PDFs", "Código que se ejecuta solo", "Papel"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Ethereum</h3><p>La computadora mundial.</p>", q: "¿Qué permite?", opts: ["Solo pagos", "Apps descentralizadas", "Navegar"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: ERC-20</h3><p>Estándar de tokens.</p>", q: "¿Qué es?", opts: ["Red", "Regla para crear tokens", "Nodo"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Layer 2</h3><p>Capas de escalabilidad.</p>", q: "¿Para qué sirven?", opts: ["Bajar comisiones", "Minar", "Vender"], correct: 0 },
+                        { lesson: "<h3>DÍA 5: NFTs</h3><p>Activos únicos.</p>", q: "¿Son fungibles?", opts: ["Sí", "No, son únicos", "A veces"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: DAOs</h3><p>Organizaciones sin jefe.</p>", q: "¿Quién decide?", opts: ["CEO", "Voto de poseedores", "Gobierno"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Oráculos</h3><p>Puentes al mundo real.</p>", q: "¿Qué traen?", opts: ["Comida", "Datos externos a BC", "Dinero"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 6: Tokenomics",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Supply</h3><p>Suministro total vs circulante.</p>", q: "¿Qué es circulante?", opts: ["Total", "Tokens en mercado", "Perdidos"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Vesting</h3><p>Liberación gradual.</p>", q: "¿Para qué?", opts: ["Vender todo", "Evitar caídas masivas", "Minar"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Market Cap</h3><p>Valor total de red.</p>", q: "¿Cálculo?", opts: ["P x S", "Precio solo", "Volumen"], correct: 0 },
+                        { lesson: "<h3>DÍA 4: Burn</h3><p>Quema de tokens.</p>", q: "¿Qué hace?", opts: ["Sube supply", "Baja supply", "Nada"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Ballenas</h3><p>Grandes tenedores.</p>", q: "¿Qué influyen?", opts: ["Clima", "Precio y liquidez", "Internet"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Inflación Token</h3><p>Nuevos tokens creados.</p>", q: "¿Diluye valor?", opts: ["No", "Sí, a largo plazo", "Nunca"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Utilidad</h3><p>Uso real del activo.</p>", q: "¿Es vital?", opts: ["No", "Sí, da valor real", "Poco"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 7: Minería Profunda",
+                    days: [
+                        { lesson: "<h3>DÍA 1: ASIC</h3><p>Hardware especializado.</p>", q: "¿Qué es ASIC?", opts: ["PC", "Hardware para minar", "Móvil"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Hashrate</h3><p>Potencia de minado.</p>", q: "¿Qué mide?", opts: ["Velocidad web", "Potencia de red", "Precio"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Pools</h3><p>Mineros unidos.</p>", q: "¿Para qué?", opts: ["Pagar menos", "Ingresos estables", "Vender"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Dificultad</h3><p>Ajuste cada 2016 bloques.</p>", q: "¿Por qué?", opts: ["Subir precio", "Mantener bloques c/10min", "Bajar luz"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Gasto Energía</h3><p>Blindaje físico.</p>", q: "¿Qué protege?", opts: ["Bancos", "La red de ataques", "Emails"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Recompensas</h3><p>Subsidio + Comisiones.</p>", q: "¿Qué gana minero?", opts: ["Nada", "BTC + Fees", "Fiat"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Pools vs Solo</h3><p>Individual vs Grupo.</p>", q: "¿Pool es?", opts: ["Grupo", "Solo", "Banco"], correct: 0 }
+                    ]
+                },
+                {
+                    title: "Semana 8: Ciclos de Mercado",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Halving</h3><p>Recorte de emisión 50%.</p>", q: "¿Cada cuánto?", opts: ["1 año", "4 años", "10 años"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Escasez</h3><p>S2F (Stock to Flow).</p>", q: "¿Mide?", opts: ["Precio", "Escasez vs Emisión", "Volumen"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Bull Market</h3><p>Mercado al alza.</p>", q: "¿Qué domina?", opts: ["Miedo", "Codicia/Optimismo", "Tristeza"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Bear Market</h3><p>Mercado a la baja.</p>", q: "¿Qué domina?", opts: ["Miedo", "Codicia", "Risa"], correct: 0 },
+                        { lesson: "<h3>DÍA 5: Ciclos 4 Años</h3><p>Basados en Halving.</p>", q: "¿Se repiten?", opts: ["No", "Históricamente sí", "Nunca"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Acumulación</h3><p>Fase de compra silenciosa.</p>", q: "¿Quién compra?", opts: ["Novatos", "Inversores expertos", "Nadie"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: El Último BTC</h3><p>Año 2140.</p>", q: "¿Qué pasará?", opts: ["Fin de red", "Solo ganan comisiones", "Se borra"], correct: 1 }
+                    ]
+                }
+            ],
+            3: [ // MES 3: Operativa y Seguridad
+                {
+                    title: "Semana 9: USDT y Redes",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Stablecoins</h3><p>Monedas 1:1 al Dólar.</p>", q: "¿Qué es USDT?", opts: ["BTC", "Dólar Digital", "Oro"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Red TRC-20</h3><p>Red de Tron (Barata).</p>", q: "¿Es rápida?", opts: ["No", "Sí y económica", "Lenta"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Red ERC-20</h3><p>Red de Ethereum.</p>", q: "¿Comisiones?", opts: ["Bajas", "Altas (Gas)", "Gratis"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Depeg</h3><p>Pérdida de paridad.</p>", q: "¿Es riesgo?", opts: ["No", "Sí, peligroso", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Respaldo</h3><p>Activos que avalan valor.</p>", q: "¿Es vital?", opts: ["No", "Sí, da confianza", "Nada"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Arbitraje</h3><p>Ganar por diferencia.</p>", q: "¿Qué es?", opts: ["Minar", "Comprar barato/Vender caro", "Votar"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: USDC vs USDT</h3><p>Competencia de estabilidad.</p>", q: "¿Ambas son?", opts: ["BTC", "Stablecoins", "Memes"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 10: Operativa P2P",
+                    days: [
+                        { lesson: "<h3>DÍA 1: P2P</h3><p>Persona a persona.</p>", q: "¿Hay banco?", opts: ["Sí", "No, trato directo", "A veces"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Escrow</h3><p>Garantía de plataforma.</p>", q: "¿Protege?", opts: ["No", "Sí, retiene criptos", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Reputación</h3><p>Filtro de confianza.</p>", q: "¿Mínimo éxito?", opts: ["50%", "95%+", "10%"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Apelación</h3><p>Resolución de conflictos.</p>", q: "¿Quién decide?", opts: ["Tú", "Soporte oficial", "Vendedor"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Triangulación</h3><p>Estafa común.</p>", q: "¿Qué es?", opts: ["Un pago", "Robo por tercero", "Venta"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: KYC</h3><p>Verificación de ID.</p>", q: "¿Para qué?", opts: ["Minar", "Evitar lavado/fraude", "Jugar"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Órdenes Limit</h3><p>Precio fijo elegido.</p>", q: "¿Es segura?", opts: ["No", "Sí, tú pones precio", "Poco"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 11: Custodia Pro",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Frase Semilla</h3><p>Tus 12/24 palabras.</p>", q: "¿Dónde guardarlas?", opts: ["Email", "Físico (Papel/Metal)", "Foto"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: Cold Wallets</h3><p>Fuera de internet.</p>", q: "¿Es segura?", opts: ["No", "Sí, máxima seguridad", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Hot Wallets</h3><p>Billeteras de móvil.</p>", q: "¿Riesgo?", opts: ["Ninguno", "Hackeo online", "Fuego"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Ledger/Trezor</h3><p>Marcas líderes.</p>", q: "¿Son?", opts: ["Software", "Hardware Wallets", "Bancos"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Multi-sig</h3><p>Varias firmas necesarias.</p>", q: "¿Para qué?", opts: ["Más velocidad", "Más seguridad", "Pagar"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Herencia Cripto</h3><p>Plan para el futuro.</p>", q: "¿Es vital?", opts: ["No", "Sí, evitar pérdida", "Nada"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Custodia vs CEX</h3><p>Ser tu propio banco.</p>", q: "¿Mejor?", opts: ["Exchange", "Autocustodia", "Banco"], correct: 1 }
+                    ]
+                },
+                {
+                    title: "Semana 12: Fraude y Graduación",
+                    days: [
+                        { lesson: "<h3>DÍA 1: Phishing</h3><p>Sitios falsos.</p>", q: "¿Cómo evitar?", opts: ["Confiar", "Verificar URL siempre", "Nada"], correct: 1 },
+                        { lesson: "<h3>DÍA 2: SIM Swapping</h3><p>Robo de línea móvil.</p>", q: "¿Cómo blindar?", opts: ["SMS", "App Autenticadora (2FA)", "Llamar"], correct: 1 },
+                        { lesson: "<h3>DÍA 3: Rug Pulls</h3><p>Robo de liquidez.</p>", q: "¿Señal roja?", opts: ["Equipo real", "Liquidez bloqueada 0", "Whitepaper"], correct: 1 },
+                        { lesson: "<h3>DÍA 4: Ponzi</h3><p>Pirámides matemáticas.</p>", q: "¿Son sostenibles?", opts: ["Sí", "No, colapsan siempre", "A veces"], correct: 1 },
+                        { lesson: "<h3>DÍA 5: Ingeniería Social</h3><p>Engaños por chat.</p>", q: "¿Qué hacer?", opts: ["Pagar", "Bloquear y reportar", "Hablar"], correct: 1 },
+                        { lesson: "<h3>DÍA 6: Seguridad de PC</h3><p>Software limpio.</p>", q: "¿Vital?", opts: ["No", "Sí, evitar malware", "Poco"], correct: 1 },
+                        { lesson: "<h3>DÍA 7: Graduación</h3><p>Maestría alcanzada.</p>", q: "¿Último paso?", opts: ["Borrar todo", "Sincronización final", "Nada"], correct: 1 }
+                    ]
+                }
+            ]
+        };
+
+        let curMonth = 1, curWeek = 0, curDay = 0;
+
+        function selectMonth(m) {
+            curMonth = m;
+            document.querySelectorAll('.month-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`m-btn-${m}`).classList.add('active');
+            const sel = document.getElementById('week-selector'); sel.innerHTML = '';
+            uniDB[m].forEach((w, i) => {
+                sel.innerHTML += `<div class="week-card" id="w-btn-${i}" onclick="loadWeek(${i})">W${(m-1)*4 + i + 1}</div>`;
+            });
+            loadWeek(0);
+        }
+
+        function loadWeek(i) {
+            curWeek = i; curDay = 0;
+            document.querySelectorAll('.week-card').forEach(c => c.classList.remove('active'));
+            if(document.getElementById(`w-btn-${i}`)) document.getElementById(`w-btn-${i}`).classList.add('active');
+            render();
+        }
+
+        function render() {
+            const w = uniDB[curMonth][curWeek], d = w.days[curDay];
+            document.getElementById('lesson-area').innerHTML = `
+                <div class="lesson-header">
+                    <span style="color:var(--uni-purple); font-weight:900;">W${(curMonth-1)*4 + curWeek + 1} - ${w.title}</span>
+                    <span style="color:var(--success);">DÍA ${curDay + 1}/7</span>
+                </div>
+                <div class="quiz-progress">${Array.from({length:7}, (_,i) => `<div class="prog-dot ${i<curDay?'done':(i==curDay?'active':'')}"></div>`).join('')}</div>
+                <div class="data-block">${d.lesson}</div>
+                <button class="btn btn-glow-purple mt-4" onclick="startQuiz()">TOMAR DESAFÍO DIARIO</button>
+            `;
+            document.getElementById('quiz-area').style.display = 'none';
+        }
+
+        function startQuiz() {
+            document.getElementById('quiz-area').style.display = 'block';
+            const d = uniDB[curMonth][curWeek].days[curDay];
+            document.getElementById('quiz-content').innerHTML = `
+                <p style="font-weight:700;">${d.q}</p>
+                ${d.opts.map((o, i) => `<div class="quiz-option" onclick="check(${i}, ${d.correct})">
+                    <span style="color:var(--uni-purple); font-weight:900;">[ ${String.fromCharCode(65+i)} ]</span> ${o}
+                </div>`).join('')}
+            `;
+            document.getElementById('quiz-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function check(s, c) {
+            const opts = document.querySelectorAll('.quiz-option'), key = `u_m${curMonth}_w${curWeek}_d${curDay}`;
+            if(s === c) {
+                opts[s].classList.add('correct');
+                if(!uniQuizzesDone[key]) {
+                    userHash += 250; updateBalance(); showReward(250);
+                    uniQuizzesDone[key] = true; localStorage.setItem('uniQuizzesDone', JSON.stringify(uniQuizzesDone));
+                }
+                setTimeout(() => {
+                    curDay++;
+                    if(curDay < 7) render();
+                    else alert("CICLO SEMANAL COMPLETADO");
+                }, 800);
+            } else { opts[s].classList.add('wrong'); alert("ERROR DE DATOS"); }
+        }
+
+        function showReward(a) { const p = document.getElementById('reward-popup'); document.getElementById('reward-amount').innerText = a; p.style.display = 'block'; setTimeout(() => p.style.display = 'none', 2000); }
+        function updateBalance() { document.getElementById('global-hash').innerText = userHash.toLocaleString(); localStorage.setItem('userHash', userHash); }
+        
+        updateBalance(); selectMonth(1);
+    </script>
+</body>
+</html>

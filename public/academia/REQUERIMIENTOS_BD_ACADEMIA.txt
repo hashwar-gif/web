@@ -1,0 +1,46 @@
+REQUERIMIENTOS TÉCNICOS: BASE DE DATOS HASHWAR ACADEMY
+=====================================================
+
+Para que la academia sea funcional y persistente (guardar progreso, usuarios y ranking), se requiere una base de datos relacional (PostgreSQL o MySQL). 
+
+ESTRUCTURA DE TABLAS RECOMENDADA:
+
+1. TABLA: usuarios (users)
+   - id (Primary Key, UUID)
+   - username (String, Único)
+   - email (String, Único)
+   - password_hash (String)
+   - balance_hash (BigInt, Default 0)
+   - created_at (Timestamp)
+
+2. TABLA: modulos (modules)
+   - id (Primary Key)
+   - nombre (String)
+   - hash_recompensa (Integer)
+   - total_preguntas (Integer)
+
+3. TABLA: progreso_usuario (user_progress)
+   - id (Primary Key)
+   - user_id (Foreign Key -> usuarios.id)
+   - module_id (Foreign Key -> modulos.id)
+   - estado (Enum: 'pendiente', 'completado')
+   - puntaje (Integer)
+   - completado_at (Timestamp)
+
+4. TABLA: transacciones (transactions)
+   - id (Primary Key)
+   - user_id (Foreign Key -> usuarios.id)
+   - tipo (Enum: 'recompensa_modulo', 'examen_elite', 'canje')
+   - monto (Integer)
+   - fecha (Timestamp)
+
+5. TABLA: ranking_global (leaderboard) - Vista optimizada
+   - user_id
+   - username
+   - total_hash_acumulado
+   - rango_maestria (basado en puntaje)
+
+TECNOLOGÍAS RECOMENDADAS PARA EL BACKEND:
+- Node.js con Express (Rápido y compatible con tu JS actual)
+- Prisma o Sequelize (Como ORM para manejar la base de datos)
+- JWT (Para que los alumnos inicien sesión de forma segura)

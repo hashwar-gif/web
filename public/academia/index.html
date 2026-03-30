@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASHWAR ACADEMY - Recompensas y Maestría</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Botón de Salida -->
+    <a href="../../home.html" class="exit-vault" style="z-index: 999999 !important;">
+        <i class="fas fa-sign-out-alt exit-icon"></i>
+        <span class="exit-text">SALIR AL HOME</span>
+    </a>
+
+    <!-- Contador de $HASH -->
+    <div class="hash-vault">
+        <i class="fas fa-coins hash-icon"></i>
+        <span class="hash-balance" id="global-hash">0</span>
+        <span style="color: var(--gold); font-size: 0.8rem;">$HASH</span>
+    </div>
+
+    <!-- Popup de Recompensa -->
+    <div id="reward-popup" class="reward-popup">
+        + <span id="reward-amount">0</span> $HASH GANADOS
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="hero-banner" id="hero">
+        <div class="scanner-line"></div>
+        
+        <p class="hero-subtitle">Entrena tu mente. Domina el Blockchain. Acumula Riqueza.</p>
+        <h1 class="hero-glitch" data-text="HASHWAR ACADEMY">HASHWAR ACADEMY</h1>
+        
+        <!-- HOLOGRAMA DINÁMICO -->
+        <div class="hologram-wrapper">
+            <div class="hologram-content">
+                <img src="img/poster2.jpeg" alt="Holograma HASHWAR" class="hologram-img">
+                <div class="hologram-scanlines"></div>
+                <div class="hologram-noise"></div>
+            </div>
+            <div class="hologram-base"></div>
+        </div>
+
+        <div class="hero-buttons">
+            <button class="btn" onclick="scrollToAcademy()">Explorar Módulos</button>
+            <button class="btn btn-secondary" id="start-evaluation-hero">Prueba de Elite (+10k $HASH)</button>
+            <button class="btn btn-success" onclick="showRanking()">Ver Ranking Global</button>
+        </div>
+
+        <div class="hero-buttons" style="margin-top: 20px;">
+            <a href="colegio.html" class="btn btn-glow-blue" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-school"></i> COLEGIO
+            </a>
+            <a href="universidad.html" class="btn btn-glow-purple" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-university"></i> UNIVERSIDAD (PRO)
+            </a>
+        </div>
+    </header>
+
+    <!-- SECCIÓN RANKING GLOBAL -->
+    <section id="ranking-section" style="display: none; padding: 60px 0;">
+        <div class="container">
+            <div class="evaluation-box" style="border-color: var(--gold);">
+                <h2 style="text-align: center; color: var(--gold); font-size: 2.5rem; margin-bottom: 30px;">HALL OF FAME: ÉLITE HASHWAR</h2>
+                <div class="table-responsive">
+                    <table class="comparison-table" style="text-align: center; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Rango</th>
+                                <th>Agente</th>
+                                <th>Puntaje Máximo</th>
+                                <th>Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking-body">
+                            <!-- Datos dinámicos -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="hideRanking()">VOLVER</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN ACADEMIA -->
+    <section id="academy" style="padding: 40px 0;">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary);">TERMINALES DE CONOCIMIENTO</h2>
+            
+            <div class="academy-grid" id="academy-grid">
+                <!-- Módulos -->
+                <div class="academy-card" data-module="blockchain" onclick="showModule('blockchain')">
+                    <div class="status-tag" id="status-blockchain">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">⛓️</div>
+                    <h3>¿Qué es Blockchain?</h3>
+                    <p>Descubre la tecnología revolucionaria detrás de las criptomonedas.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+
+                <div class="academy-card" data-module="cryptocurrency" onclick="showModule('cryptocurrency')">
+                    <div class="status-tag" id="status-cryptocurrency">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">₿</div>
+                    <h3>Criptomonedas</h3>
+                    <p>Aprende sobre el dinero digital y sus características.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+
+                <div class="academy-card" data-module="mining" onclick="showModule('mining')">
+                    <div class="status-tag" id="status-mining">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">⛏️</div>
+                    <h3>Minería Bitcoin</h3>
+                    <p>Comprende cómo se crean nuevos activos digitales.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+
+                <div class="academy-card" data-module="usdt" onclick="showModule('usdt')">
+                    <div class="status-tag" id="status-usdt">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">💱</div>
+                    <h3>Compra USDT</h3>
+                    <p>Guía segura para adquirir stablecoins P2P.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+
+                <div class="academy-card" data-module="scams" onclick="showModule('scams')">
+                    <div class="status-tag" id="status-scams">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">🚫</div>
+                    <h3>Evitar Estafas</h3>
+                    <p>Protege tus activos de los ciber-criminales.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+
+                <div class="academy-card" data-module="pyramids" onclick="showModule('pyramids')">
+                    <div class="status-tag" id="status-pyramids">PENDIENTE</div>
+                    <div class="reward-tag">+500 $HASH</div>
+                    <div class="academy-icon" style="font-size: 3rem; margin-bottom: 15px;">⚠️</div>
+                    <h3>Pirámides</h3>
+                    <p>Identifica y huye de esquemas Ponzi insostenibles.</p>
+                    <button class="btn" style="margin-top: 20px; padding: 10px 20px;">ACCEDER</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <!-- CONTENIDOS DE MÓDULOS -->
+            <!-- Módulo 1: Blockchain -->
+            <div class="module-content module-blockchain" id="module-blockchain">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 01: BLOCKCHAIN</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-blockchain-0">
+                        <div class="module-intro-layout">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/1blockchain.png" alt="Blockchain" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>¿Qué es Blockchain?</h3>
+                                <p>Blockchain (cadena de bloques) es una tecnología de registro distribuido que permite mantener un libro contabilidad digital compartido e inalterable.</p>
+                                <div class="info-box">
+                                    <strong>EL HASH:</strong> Es la huella digital única de cada bloque.
+                                </div>
+                                <h3>Características Principales</h3>
+                                <ul class="step-list">
+                                    <li><strong>Descentralización:</strong> Sin control central.</li>
+                                    <li><strong>Inmutabilidad:</strong> Información inalterable.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('blockchain')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿Cuál de estas NO es una característica de blockchain?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 1, 0, 1)">
+                                <span>[ A ] Inmutabilidad</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 1, 1, 1)">
+                                <span>[ B ] Control centralizado</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('blockchain')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Qué significa que un bloque es "inmutable"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 2, 0, 1)">
+                                <span>[ A ] Que se puede borrar fácilmente</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 2, 1, 1)">
+                                <span>[ B ] Que la información no se puede modificar</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('blockchain')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Cómo se conectan los bloques entre sí?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 3, 0, 1)">
+                                <span>[ A ] Con pegamento digital</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 3, 1, 1)">
+                                <span>[ B ] Mediante punteros criptográficos (Hashes)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('blockchain')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Quién guarda la copia del libro contable en una blockchain?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 4, 0, 1)">
+                                <span>[ A ] Solo el creador de la red</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 4, 1, 1)">
+                                <span>[ B ] Todos los nodos/usuarios de la red</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('blockchain')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué es un "Nodo" en la red?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 5, 0, 0)">
+                                <span>[ A ] Un ordenador que valida y guarda transacciones</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 5, 1, 0)">
+                                <span>[ B ] Un cable de fibra óptica</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('blockchain')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-blockchain-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Quién es Satoshi Nakamoto?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 6, 0, 0)">
+                                <span>[ A ] El creador anónimo de Bitcoin</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('blockchain', 6, 1, 0)">
+                                <span>[ B ] El CEO de un banco japonés</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('blockchain')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 2: Criptomonedas -->
+            <div class="module-content module-cryptocurrency" id="module-cryptocurrency">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 02: CRIPTOMONEDAS</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-cryptocurrency-0">
+                        <div class="module-intro-layout layout-reverse">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/2criptomonedas.png" alt="Criptomonedas" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>Activos Digitales</h3>
+                                <p>Las criptomonedas son monedas digitales que utilizan criptografía para asegurar transacciones.</p>
+                                <div class="info-box">
+                                    <strong>ESTRATEGIA HODL:</strong> Mantener tus activos a largo plazo.
+                                </div>
+                                <h3>Tipos de Criptomonedas</h3>
+                                <ul class="step-list">
+                                    <li><strong>Stablecoins:</strong> Valor fijo (como USDT).</li>
+                                    <li><strong>Altcoins:</strong> Alternativas (como Ethereum).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('cryptocurrency')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿Cuál fue la primera criptomoneda creada en el mundo?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 1, 0, 0)">
+                                <span>[ A ] Bitcoin</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 1, 1, 0)">
+                                <span>[ B ] Ethereum</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('cryptocurrency')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Cuál es el límite máximo de Bitcoins que existirán?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 2, 0, 0)">
+                                <span>[ A ] 21 Millones</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 2, 1, 0)">
+                                <span>[ B ] Es infinito</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('cryptocurrency')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Qué es una Stablecoin?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 3, 0, 1)">
+                                <span>[ A ] Una moneda que cambia de precio cada segundo</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 3, 1, 1)">
+                                <span>[ B ] Una moneda con valor estable (vinculada al dólar)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('cryptocurrency')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Qué necesitas para "ser tu propio banco" con cripto?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 4, 0, 0)">
+                                <span>[ A ] Una billetera digital e internet</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 4, 1, 0)">
+                                <span>[ B ] Permiso de un banco central</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('cryptocurrency')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué es el "GAS" en redes como Ethereum?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 5, 0, 0)">
+                                <span>[ A ] El coste de procesamiento de una transacción</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 5, 1, 0)">
+                                <span>[ B ] Combustible real para los servidores</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('cryptocurrency')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-cryptocurrency-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Qué es un "Smart Contract"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 6, 0, 0)">
+                                <span>[ A ] Un contrato digital que se ejecuta automáticamente</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('cryptocurrency', 6, 1, 0)">
+                                <span>[ B ] Un contrato legal firmado en papel</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('cryptocurrency')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Minería -->
+            <div class="module-content module-mining" id="module-mining">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 03: MINERÍA</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-mining-0">
+                        <div class="module-intro-layout">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/3mineria de bitcoin.png" alt="Minería" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>Validación de la Red</h3>
+                                <p>La minería valida transacciones y añade nuevos bloques a la red Bitcoin.</p>
+                                <div class="info-box">
+                                    <strong>HALVING:</strong> Reducción de recompensa cada 4 años.
+                                </div>
+                                <h3>Mecánica de Seguridad</h3>
+                                <ul class="step-list">
+                                    <li><strong>Proof of Work:</strong> Potencia de cómputo real.</li>
+                                    <li><strong>ASIC:</strong> Equipos especializados.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('mining')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-mining-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿Qué mecanismo de consenso utiliza la red de Bitcoin?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 1, 0, 0)">
+                                <span>[ A ] Proof of Work (PoW)</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 1, 1, 0)">
+                                <span>[ B ] Proof of Stake (PoS)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('mining')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-mining-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Qué es el "Halving"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 2, 0, 0)">
+                                <span>[ A ] Reducción de la recompensa de minado a la mitad</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 2, 1, 0)">
+                                <span>[ B ] Un aumento en la velocidad de la red</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('mining')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-mining-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Cuál es el equipo más eficiente para minar Bitcoin hoy en día?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 3, 0, 1)">
+                                <span>[ A ] Una computadora de oficina</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 3, 1, 1)">
+                                <span>[ B ] Un equipo ASIC especializado</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('mining')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-mining-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Qué resuelven los mineros para validar un bloque?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 4, 0, 1)">
+                                <span>[ A ] Crucigramas digitales</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 4, 1, 1)">
+                                <span>[ B ] Acertijos matemáticos muy complejos</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('mining')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-mining-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué es el "Hashrate"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 5, 0, 0)">
+                                <span>[ A ] La potencia total de procesamiento de la red</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 5, 1, 0)">
+                                <span>[ B ] El precio actual de la electricidad</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('mining')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-mining-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Qué ocurre si el Hashrate sube significativamente?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 6, 0, 0)">
+                                <span>[ A ] Aumenta la seguridad de la red</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('mining', 6, 1, 0)">
+                                <span>[ B ] El Bitcoin se vuelve más fácil de hackear</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('mining')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-content module-usdt" id="module-usdt">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 04: COMPRA SEGURA USDT</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-usdt-0">
+                        <div class="module-intro-layout layout-reverse">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/4compra segura usdt.png" alt="USDT" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>Dólar Digital</h3>
+                                <p>USDT es una stablecoin vinculada al Dólar para evitar volatilidad.</p>
+                                <div class="warning-box">
+                                    <strong>P2P:</strong> Compra directa de persona a persona con seguridad.
+                                </div>
+                                <h3>Guía de Compra</h3>
+                                <ul class="step-list">
+                                    <li><strong>KYC:</strong> Verificación de identidad necesaria.</li>
+                                    <li><strong>Reputación:</strong> Filtra por éxito (+95%).</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('usdt')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿A qué activo está vinculado el valor de 1 USDT?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 1, 0, 1)">
+                                <span>[ A ] Al Oro</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 1, 1, 1)">
+                                <span>[ B ] Al Dólar Americano</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('usdt')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Qué significa "P2P" en el mundo cripto?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 2, 0, 1)">
+                                <span>[ A ] Pago a Personas del banco</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 2, 1, 1)">
+                                <span>[ B ] Peer-to-Peer (De persona a persona)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('usdt')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Qué es el proceso de "KYC"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 3, 0, 1)">
+                                <span>[ A ] Un tipo de criptomoneda rápida</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 3, 1, 1)">
+                                <span>[ B ] Verificación de identidad (Know Your Customer)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('usdt')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Cómo confirmas que recibiste el dinero en una compra P2P?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 4, 0, 1)">
+                                <span>[ A ] Enviando un correo al vendedor</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 4, 1, 1)">
+                                <span>[ B ] Liberando o confirmando en la plataforma oficial</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('usdt')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué red es más usada para USDT por sus bajas comisiones?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 5, 0, 0)">
+                                <span>[ A ] TRC-20 (Red de TRON)</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 5, 1, 0)">
+                                <span>[ B ] Red de Bitcoin (Capa 1)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('usdt')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-usdt-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Qué ocurre si el dólar real sube frente a tu moneda local?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 6, 0, 0)">
+                                <span>[ A ] El valor de tu USDT sube en la misma proporción</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('usdt', 6, 1, 0)">
+                                <span>[ B ] El USDT se queda estático y pierdes dinero</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('usdt')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-content module-scams" id="module-scams">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 05: CIBERSEGURIDAD</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-scams-0">
+                        <div class="module-intro-layout">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/5evitar estafas.png" alt="Seguridad" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>Protección de Activos</h3>
+                                <p>En cripto tú eres tu propio banco y responsable de tu seguridad.</p>
+                                <div class="danger-box">
+                                    <strong>REGLA DE ORO:</strong> Jamás compartas tus palabras semilla.
+                                </div>
+                                <h3>Medidas de Defensa</h3>
+                                <ul class="step-list">
+                                    <li><strong>2FA:</strong> Doble factor de seguridad.</li>
+                                    <li><strong>Antiphishing:</strong> Verifica siempre los enlaces.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('scams')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-scams-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿Qué debes hacer si alguien te promete duplicar tu dinero rápido?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 1, 0, 0)">
+                                <span>[ A ] Bloquearlo, es una estafa segura</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 1, 1, 0)">
+                                <span>[ B ] Probar con una pequeña cantidad</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('scams')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-scams-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Qué es la "Frase Semilla"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 2, 0, 0)">
+                                <span>[ A ] Tus 12/24 palabras de respaldo de tu billetera</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 2, 1, 0)">
+                                <span>[ B ] Tu nombre de usuario en el exchange</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('scams')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-scams-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Dónde debes activar siempre el 2FA (Segundo Factor)?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 3, 0, 1)">
+                                <span>[ A ] Solo en juegos online</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 3, 1, 1)">
+                                <span>[ B ] En todas tus cuentas de Exchanges y correos</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('scams')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-scams-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Si el "soporte técnico" de una red social te pide tu frase semilla?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 4, 0, 1)">
+                                <span>[ A ] Se la das para que arreglen tu cuenta</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 4, 1, 1)">
+                                <span>[ B ] Es una estafa, un soporte real nunca la pide</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('scams')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-scams-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué es el "FOMO"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 5, 0, 0)">
+                                <span>[ A ] Miedo a perderse una oportunidad (Fear of Missing Out)</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 5, 1, 0)">
+                                <span>[ B ] Una nueva moneda de alta seguridad</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('scams')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-scams-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Si un "Influencer" te pide dinero para invertir por ti?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 6, 0, 0)">
+                                <span>[ A ] Es una estafa, nunca envíes dinero a extraños</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('scams', 6, 1, 0)">
+                                <span>[ B ] Es un gestor de fondos de confianza</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('scams')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-content module-pyramids" id="module-pyramids">
+                <div class="module-inner">
+                    <div class="module-header">
+                        <button class="btn" onclick="backToAcademy()" style="padding: 10px 20px; font-size: 0.8rem;">← VOLVER</button>
+                        <h2 style="color: var(--primary);">BLOQUE 06: DETECCIÓN PONZI</h2>
+                    </div>
+
+                    <div class="module-step active" id="step-pyramids-0">
+                        <div class="module-intro-layout layout-reverse">
+                            <div class="module-img-container">
+                                <div class="shine"></div>
+                                <img src="img/6identificar piramides.png" alt="Pirámides" class="module-step-img">
+                            </div>
+                            <div class="module-text-container">
+                                <h3>Esquemas Piramidales</h3>
+                                <p>Son modelos de negocio insostenibles donde el dinero de los nuevos paga a los antiguos.</p>
+                                <table class="comparison-table">
+                                    <tr><th>Piramidal</th><th>Legítimo</th></tr>
+                                    <tr><td>Gana por reclutar</td><td>Venta de productos</td></tr>
+                                    <tr><td>Fijo Garantizado</td><td>Variable Mercado</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <button class="btn btn-success" onclick="nextStep('pyramids')">Siguiente: Desafío 1</button>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-1">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 01 (+500 $HASH)</h4>
+                            <p>¿Cuál es el motor principal de un esquema piramidal?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 1, 0, 0)">
+                                <span>[ A ] El reclutamiento constante de nuevos miembros</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 1, 1, 0)">
+                                <span>[ B ] El comercio de diamantes reales</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('pyramids')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-2">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 02 (+500 $HASH)</h4>
+                            <p>¿Qué pasa cuando deja de entrar gente nueva a la pirámide?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 2, 0, 0)">
+                                <span>[ A ] El esquema colapsa y los últimos pierden todo</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 2, 1, 0)">
+                                <span>[ B ] Se convierte en una empresa legal automáticamente</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('pyramids')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-3">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 03 (+500 $HASH)</h4>
+                            <p>¿Qué diferencia a un negocio real de una pirámide?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 3, 0, 0)">
+                                <span>[ A ] La venta de un producto o servicio de valor real</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 3, 1, 0)">
+                                <span>[ B ] Las fotos de gente con carros de lujo en Instagram</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('pyramids')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-4">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 04 (+500 $HASH)</h4>
+                            <p>¿Las promesas de rentabilidad "Garantizada" sin riesgo son?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 4, 0, 1)">
+                                <span>[ A ] Una oportunidad única que no debo dejar pasar</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 4, 1, 1)">
+                                <span>[ B ] Una señal clara de estafa (Red Flag)</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('pyramids')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-5">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 05 (+500 $HASH)</h4>
+                            <p>¿Qué es un "Esquema Ponzi"?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 5, 0, 0)">
+                                <span>[ A ] Pagar a inversores viejos con dinero de los nuevos</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 5, 1, 0)">
+                                <span>[ B ] Un sistema de ahorro bancario legítimo</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-next-step" onclick="nextStep('pyramids')" style="display:none; margin-top:20px;">Siguiente Paso</button>
+                        </div>
+                    </div>
+
+                    <div class="module-step" id="step-pyramids-6">
+                        <div class="quiz-container">
+                            <h4>DESAFÍO 06 (+500 $HASH)</h4>
+                            <p>¿Por qué las pirámides terminan colapsando?</p>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 6, 0, 0)">
+                                <span>[ A ] Porque el número de personas necesarias es infinito</span>
+                            </div>
+                            <div class="quiz-option" onclick="checkModuleAnswer('pyramids', 6, 1, 0)">
+                                <span>[ B ] Porque los gobiernos les tienen envidia</span>
+                            </div>
+                            <div class="step-result"></div>
+                            <button class="btn btn-success" onclick="finishModule('pyramids')" style="display:none; margin-top:20px;">Finalizar Módulo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EVALUACIÓN -->
+    <section id="evaluation" class="evaluation-section">
+        <div class="container">
+            <div class="evaluation-box">
+                <h2 style="text-align: center; color: var(--primary); font-size: 2.5rem; margin-bottom: 30px;">EXAMEN DE ÉLITE HASHWAR</h2>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 40px; font-weight: 900;">
+                    <span>RECOMPENSA: 1,000 $HASH / RESPUESTA</span>
+                    <span id="eval-progress">PREGUNTA 1 / 10</span>
+                </div>
+
+                <div id="eval-question-area">
+                    <!-- Dinámico -->
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 50px;">
+                    <button class="btn btn-secondary" onclick="location.reload()">ABORTAR</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pantalla de Resultados Finales Mejorada -->
+    <div id="final-results" class="results-container">
+        <div class="results-content">
+            <i id="res-icon" class="fas fa-trophy res-icon"></i>
+            <h1 id="res-title" class="res-title"></h1>
+            <p id="res-message" class="res-message"></p>
+            <div class="res-hash-box">
+                <span id="res-total">0</span> $HASH
+            </div>
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+                <button class="btn btn-glow-gold" id="cert-btn" onclick="showCertificate()" style="display: none;">GENERAR CERTIFICADO ÉLITE</button>
+                <button class="btn" onclick="location.reload()">VOLVER AL INICIO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICADO DIGITAL HOLOGRÁFICO -->
+    <div id="certificate-modal" class="certificate-overlay">
+        <div class="certificate-container" id="printable-certificate">
+            <div class="cert-border"></div>
+            <div class="cert-content">
+                <div class="cert-header">
+                    <img src="img/logo1OK.png" alt="Logo" class="cert-logo">
+                    <div class="cert-title">CERTIFICADO DE MAESTRÍA</div>
+                </div>
+                
+                <div class="cert-body">
+                    <p class="cert-text-small">SE OTORGA EL PRESENTE RECONOCIMIENTO AL AGENTE:</p>
+                    <h1 id="cert-user-name" class="cert-user-name">NOMBRE DEL AGENTE</h1>
+                    <p class="cert-text-main">POR HABER DEMOSTRADO CONOCIMIENTOS SUPERIORES EN TECNOLOGÍA BLOCKCHAIN, CRIPTOGRAFÍA Y SEGURIDAD DIGITAL, COMPLETANDO CON ÉXITO TODOS LOS TERMINALES DE HASHWAR ACADEMY.</p>
+                </div>
+
+                <div class="cert-footer">
+                    <div class="cert-info">
+                        <span class="cert-label">RANGO:</span>
+                        <span class="cert-value">ÉLITE HASHWAR</span>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-label">HASH ACUMULADO:</span>
+                        <span id="cert-hash-value" class="cert-value">0</span>
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-label">FECHA:</span>
+                        <span id="cert-date" class="cert-value">00/00/2026</span>
+                    </div>
+                </div>
+
+                <div class="cert-seal">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>VERIFIED BY HASHWAR</span>
+                </div>
+            </div>
+        </div>
+        <div class="cert-actions">
+            <button class="btn btn-success" onclick="printCertificate()">IMPRIMIR / GUARDAR PDF</button>
+            <button class="btn" onclick="closeCertificate()">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- Mensaje de Invitación a Élite -->
+    <div id="elite-unlock-invitation" class="elite-unlock-overlay">
+        <div class="elite-unlock-card">
+            <h2>¡ACCESO ÉLITE DETECTADO!</h2>
+            <p>Has demostrado maestría en todos los terminales básicos. <br><br> El portal final ha sido desbloqueado. Te espera el desafío definitivo donde podrás ganar <strong>+10,000 $HASH</strong> y entrar en el Hall of Fame.</p>
+            <button class="btn btn-glow-gold" onclick="closeEliteInvitation()">EXPLORAR PORTAL ÉLITE</button>
+        </div>
+    </div>
+
+    <!-- Visor de Imágenes (Zoom) -->
+    <div id="image-viewer" class="image-viewer-modal" onclick="closeImageViewer()">
+        <img id="viewer-img" class="viewer-content" src="" alt="Zoom">
+    </div>
+
+    <!-- Bootstrap 5 Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

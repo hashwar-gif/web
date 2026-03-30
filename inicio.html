@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASHWAR - Rise of the Miners</title>
+    <link rel="stylesheet" href="./public/css/index_v32.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-container">
+        <img src="./public/img/logo_principal.jpeg" alt="Fondo" class="background-image">
+        <div class="background-overlay"></div>
+    </div>
+    
+    <div class="particles-container" id="particles-container"></div>
+    <div class="crypto-floating" id="crypto-floating"></div>
+    
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="title"><span class="title-gradient">HASHWAR</span></h1>
+            <p class="subtitle">
+                Estrategia en tiempo real donde la minería cripto se encuentra con la guerra táctica. 
+                Construye tu imperio minero, defiéndelo de enemigos implacables y domina el mercado 
+                cripto en un mundo digital en constante evolución.
+            </p>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-btc" id="login-btn"><i class="fab fa-bitcoin"></i> Iniciar Sesión</button>
+                <a href="registro.html" class="btn btn-eth"><i class="fab fa-ethereum"></i> Crear Cuenta</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card">
+                <h3>⚡ Minería Inteligente</h3>
+                <p>Sistemas optimizados que generan recursos en tiempo real inspirados en blockchain.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Defensa Estratégica</h3>
+                <p>Sistema avanzado con IA adaptativa. Cada ataque enemigo requiere tácticas únicas.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🚀 Evolución Constante</h3>
+                <p>La IA enemiga evoluciona desbloqueando nuevas habilidades y estrategias letales.</p>
+            </div>
+        </div>
+
+        <!-- Certifications Section -->
+        <div class="certifications-section">
+            <h4>CERTIFICADOS Y RECONOCIMIENTOS POR:</h4>
+            <div class="certification-logos">
+                <img src="./public/img/alca.png" class="cert-logo-img" alt="ALCA">
+                <img src="./public/img/ucb.png" class="cert-logo-img" alt="UCB">
+                <img src="./public/img/LOGO-CEMSE.png" class="cert-logo-img" alt="CEMSE">
+                <img src="./public/img/ita.png" class="cert-logo-img" alt="ITA">
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="terminos.html" class="footer-link">Términos</a>
+                <a href="privacidad.html" class="footer-link">Privacidad</a>
+                <a href="aviso_legal.html" class="footer-link">Aviso Legal</a>
+            </div>
+            <p>© 2026 HASHWAR: Rise of the Miners. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+    
+    <!-- Modal de Login -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">ACCEDER</h2>
+                <button class="close-modal" id="close-login">&times;</button>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Identificador de Minero</label>
+                    <input type="text" class="form-input" id="login-email" required placeholder="Email o Alias">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Código de Acceso</label>
+                    <input type="password" class="form-input" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="form-submit">INICIAR OPERACIONES</button>
+                <p style="text-align:center; margin-top:20px; font-size:0.8rem; color:#88ccff;">
+                    ¿Nuevo minero? <a href="registro.html" style="color:var(--primary); text-decoration:none; font-weight:bold;">REGÍSTRATE AQUÍ</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 60;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 5 + 2;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.background = ['#F7931A', '#00d4ff', '#ff0066'][Math.floor(Math.random()*3)];
+                
+                // Animación
+                p.style.animation = `float-up ${Math.random() * 10 + 10}s infinite linear`;
+                p.style.animationDelay = Math.random() * 20 + 's';
+                
+                container.appendChild(p);
+            }
+        }
+        
+        function createCoins() {
+            const container = document.getElementById('crypto-floating');
+            const symbols = ['₿', 'Ξ', '$', '◈', '✦', '¥'];
+            const coinCount = 20;
+            
+            for (let i = 0; i < coinCount; i++) {
+                const c = document.createElement('div');
+                c.className = 'crypto-coin';
+                c.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                c.style.color = i % 2 === 0 ? '#F7931A' : '#00d4ff';
+                
+                // Animación
+                c.style.animation = `float-up ${Math.random() * 15 + 15}s infinite linear`;
+                c.style.animationDelay = Math.random() * 30 + 's';
+                
+                container.appendChild(c);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            createCoins();
+            
+            const modal = document.getElementById('login-modal');
+            const loginBtn = document.getElementById('login-btn');
+            const closeBtn = document.getElementById('close-login');
+            const loginForm = document.getElementById('login-form');
+            
+            loginBtn.onclick = () => { 
+                modal.style.display = 'flex'; 
+                setTimeout(() => modal.style.opacity = '1', 10); 
+            };
+            
+            closeBtn.onclick = () => { 
+                modal.style.opacity = '0'; 
+                setTimeout(() => modal.style.display = 'none', 300); 
+            };
+            
+            loginForm.onsubmit = (e) => {
+                e.preventDefault();
+                const btn = loginForm.querySelector('.form-submit');
+                btn.textContent = 'AUTENTICANDO...';
+                btn.style.background = '#ff0066';
+                
+                setTimeout(() => {
+                                    window.location.href = 'home.html'; 
+                                }, 1200);
+            };
+
+            window.onclick = (e) => { if (e.target === modal) closeBtn.onclick(); };
+
+            // ABRIR LOGIN AUTOMÁTICAMENTE SI SE SOLICITA DESDE OTRA PÁGINA
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('showLogin') === 'true') {
+                loginBtn.onclick();
+            }
+        });
+    </script>
+</body>
+</html>

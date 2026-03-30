@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HASHWAR</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .login-container { width: 100%; max-width: 450px; padding: 20px; }
+        .login-box {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+        .login-header { background: linear-gradient(90deg, #00ffff 0%, #0080ff 100%); padding: 25px; text-align: center; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; font-weight: 900; color: #061d47ff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        .logo span { color: #ff0066; }
+        .login-subtitle { color: #000; margin-top: 10px; font-weight: 600; }
+        .login-content { padding: 30px; }
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; color: #00ffff; margin-bottom: 8px; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .form-input { width: 100%; padding: 14px 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid #00ffff; border-radius: 8px; color: #fff; font-size: 1rem; transition: all 0.3s; }
+        .form-input:focus { outline: none; border-color: #0080ff; box-shadow: 0 0 15px rgba(0, 128, 255, 0.5); background: rgba(255, 255, 255, 0.15); }
+        .form-hint { display: block; margin-top: 5px; color: #888; font-size: 0.85rem; }
+        .password-options { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .remember-me { display: flex; align-items: center; color: #ccc; font-size: 0.9rem; cursor: pointer; }
+        .remember-me input { margin-right: 8px; accent-color: #00ffff; }
+        .forgot-password { color: #00ffff; text-decoration: none; font-size: 0.9rem; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-login { background: linear-gradient(90deg, #00ffff 0%, #0080ff 100%); color: #000; margin-top: 10px; }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 255, 255, 0.4); }
+        .login-divider { text-align: center; margin: 25px 0; position: relative; }
+        .login-divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, #00ffff, transparent); }
+        .login-divider span { background: #1a1a2e; padding: 0 15px; color: #00ffff; font-size: 0.9rem; position: relative; }
+        .social-login { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .social-btn { padding: 12px; border: 1px solid #00ffff; background: rgba(255, 255, 255, 0.05); color: #fff; border-radius: 8px; cursor: pointer; transition: all 0.3s; display: flex; justify-content: center; align-items: center; gap: 8px; font-weight: 600; }
+        .new-user-section { margin-top: 30px; padding: 25px; background: rgba(0, 255, 255, 0.05); border-radius: 10px; border: 1px dashed #00ffff; text-align: center; }
+        .btn-register { background: linear-gradient(90deg, #ff4500 0%, #ff8c00 100%); color: #fff; text-decoration: none; display: block; padding: 16px; border-radius: 8px; text-align: center; font-weight: 700; transition: all 0.3s; }
+        .footer-links { text-align: center; margin-top: 20px; color: #888; font-size: 0.9rem; }
+        .footer-links a { color: #00ffff; text-decoration: none; margin: 0 10px; }
+        .error-message { background: rgba(255, 68, 68, 0.1); color: #ff4444; font-size: 0.9rem; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px solid #ff4444; display: none; }
+        @media (max-width: 480px) { .logo { font-size: 2rem; } .social-login { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="logo">HASH<span>WAR</span></div>
+                <div class="login-subtitle">Rise of the Miners</div>
+            </div>
+            
+            <div class="login-content">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-identifier" class="form-label">
+                            <i class="fas fa-user"></i> Correo o Alias
+                        </label>
+                        <input type="text" name="identifier" id="login-identifier" class="form-input" placeholder="Ingresa tu correo o alias" required>
+                        <small class="form-hint">Puedes usar tu correo electrónico o alias del juego</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password" class="form-label">
+                            <i class="fas fa-lock"></i> Contraseña
+                        </label>
+                        <input type="password" name="password" id="login-password" class="form-input" placeholder="Ingresa tu contraseña" required>
+                        <div class="password-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="remember-me" name="remember">
+                                <span>Recordar sesión</span>
+                            </label>
+                            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" name="login" class="btn btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </button>
+                    
+                    <div class="login-divider">
+                        <span>o continúa con</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <button type="button" class="social-btn"><i class="fab fa-google"></i> Google</button>
+                        <button type="button" class="social-btn"><i class="fab fa-discord"></i> Discord</button>
+                    </div>
+                </form>
+                
+                <div class="new-user-section">
+                    <div style="color: #00ffff; margin-bottom: 10px;"><i class="fas fa-user-plus"></i> <h4>¿Nuevo en HASHWAR?</h4></div>
+                    <p style="color: #ccc; margin-bottom: 20px; font-size: 0.9rem;">Únete a nuestra comunidad de mineros y estrategas. Crea tu cuenta para acceder a batallas épicas.</p>
+                    <a href="registro.html" class="btn-register">Crear Cuenta Nueva</a>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="inicio.html">← Volver al Inicio</a>
+                    <a href="terminos.html">Términos</a>
+                    <a href="privacidad.html">Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

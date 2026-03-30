@@ -1,0 +1,1543 @@
+ /* ===== ESTILOS GLOBALES DEL FOOTER ===== */
+    footer {
+        background: linear-gradient(180deg, #0a1929 0%, #071220 100%);
+        color: #e0f7ff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* ===== SECCIÓN CERTIFICACIONES SIMPLE ===== */
+    .certifications-section {
+        background: linear-gradient(135deg, rgba(0, 10, 20, 0.95), rgba(0, 15, 30, 0.98));
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid rgba(0, 212, 255, 0.1);
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    .certifications-section h4 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .certifications-section h4::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background: var(--primary);
+        opacity: 0.7;
+    }
+
+    .certification-logos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+
+    .cert-logo {
+        width: 180px;
+        height: 100px;
+        background: rgba(0, 20, 40, 0.9);
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(0, 212, 255, 0.1);
+    }
+
+    .cert-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: all 0.4s ease;
+        filter: brightness(1) contrast(1.1);
+    }
+
+    .cert-logo:hover {
+        background: linear-gradient(135deg, #ffffff, #f0f8ff);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 212, 255, 0.25);
+        border-color: var(--primary);
+    }
+
+    .cert-logo:hover img {
+        filter: brightness(0.95) contrast(1);
+        transform: scale(1.05);
+    }
+
+    .btn-certificates {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 25px;
+        background: linear-gradient(135deg, var(--primary), #0088cc);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-certificates::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.2), 
+            transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-certificates:hover::before {
+        left: 100%;
+    }
+
+    .btn-certificates:hover {
+        background: linear-gradient(135deg, #00d4ff, #0066cc);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+    }
+
+    /* ===== SECCIÓN UBICACIÓN ===== */
+    .location-section {
+        background: linear-gradient(135deg, rgba(0, 30, 60, 0.85), rgba(0, 40, 80, 0.75));
+        padding: 30px 0;
+        border-top: 1px solid rgba(0, 212, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .location-title {
+        text-align: center;
+        color: var(--primary);
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .location-title i {
+        color: var(--secondary);
+    }
+
+    .location-content {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .map-container {
+        border-radius: 10px;
+        overflow: hidden;
+        height: 100%;
+        min-height: 250px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .location-marker {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    .marker-core {
+        width: 12px;
+        height: 12px;
+        background: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--primary);
+    }
+
+    .marker-pulse {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30px;
+        height: 30px;
+        background: var(--primary);
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: pulseMarker 2s infinite;
+    }
+
+    @keyframes pulseMarker {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+        100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
+    .location-info-compact {
+        background: rgba(0, 15, 30, 0.5);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .info-item-compact {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        flex: 1;
+    }
+
+    .info-item-compact:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .info-item-compact i {
+        color: var(--primary);
+        font-size: 0.9rem;
+        width: 20px;
+        margin-top: 2px;
+    }
+
+    .info-item-compact h5 {
+        color: var(--accent);
+        margin-bottom: 3px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .info-item-compact p {
+        color: var(--light);
+        font-size: 0.8rem;
+        line-height: 1.3;
+        opacity: 0.85;
+        margin: 1px 0;
+    }
+
+    .btn-directions-compact {
+        margin-top: auto;
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--secondary), #cc0044);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-directions-compact:hover {
+        background: linear-gradient(135deg, #ff6666, #ff4444);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 0, 102, 0.3);
+    }
+
+    /* ===== CONTENIDO PRINCIPAL FOOTER ===== */
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        padding: 60px 0;
+    }
+
+    .footer-column h3 {
+        color: var(--primary);
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-column h3 i {
+        color: var(--secondary);
+        font-size: 1.1rem;
+    }
+
+    .footer-column p {
+        color: #b0d4ff;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+
+    /* ===== BOTÓN MONEDA 1BS - REPARADO ===== */
+    .coin-donation-section {
+        position: relative;
+        margin: 25px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        z-index: 10;
+    }
+
+    .coin-title-section {
+        margin-bottom: 10px;
+        padding: 8px 15px;
+        background: rgba(0, 20, 40, 0.6);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .coin-title {
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .coin-subtitle {
+        color: var(--primary);
+        font-size: 0.75rem;
+        margin-top: 3px;
+        opacity: 0.8;
+    }
+
+    .coin-wrapper {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .coin-btn {
+        width: 100px;
+        height: 100px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        position: relative;
+        perspective: 1000px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.5));
+        transform-style: preserve-3d;
+        opacity: 1;
+    }
+
+    .coin-btn:hover {
+        transform: scale(1.1) rotateY(20deg);
+        filter: drop-shadow(0 12px 35px rgba(0, 212, 255, 0.7));
+    }
+
+    .coin-front, .coin-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        backface-visibility: hidden;
+        transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        overflow: hidden;
+    }
+
+    .coin-front {
+        background: radial-gradient(circle at 30% 30%, 
+            #1a1a2e 0%,
+            #16213e 30%,
+            #0f3460 70%,
+            #0a1929 100%
+        );
+        transform: rotateY(0deg);
+        box-shadow: 
+            inset 0 0 40px rgba(0, 212, 255, 0.3),
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(0, 212, 255, 0.2);
+        border: 4px solid rgba(0, 212, 255, 0.5);
+        z-index: 2;
+    }
+
+    .coin-radial-glow {
+        position: absolute;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(
+            circle at center,
+            rgba(0, 212, 255, 0.4) 0%,
+            rgba(0, 212, 255, 0.2) 30%,
+            transparent 70%
+        );
+        animation: radialPulse 3s infinite alternate;
+    }
+
+    @keyframes radialPulse {
+        0% { transform: scale(0.9); opacity: 0.5; }
+        100% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .coin-metal-ring {
+        position: absolute;
+        width: 95%;
+        height: 95%;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        background: linear-gradient(45deg, 
+            transparent 0%,
+            rgba(200, 200, 200, 0.8) 50%,
+            transparent 100%
+        );
+        background-size: 200% 200%;
+        animation: metalShine 4s linear infinite;
+        box-shadow: 
+            inset 0 0 20px rgba(255, 255, 255, 0.2),
+            0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes metalShine {
+        0% { background-position: 200% 200%; }
+        100% { background-position: -200% -200%; }
+    }
+
+    .coin-digital-core {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        padding: 10px;
+        background: rgba(0, 10, 20, 0.7);
+        border-radius: 50%;
+        width: 70%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 
+            inset 0 0 20px rgba(0, 212, 255, 0.3),
+            0 0 20px rgba(0, 212, 255, 0.4);
+        border: 2px solid rgba(0, 212, 255, 0.6);
+    }
+
+    .coin-value {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #00d4ff;
+        text-shadow: 
+            0 0 10px rgba(0, 212, 255, 0.8),
+            0 0 20px rgba(0, 212, 255, 0.6),
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+        line-height: 1;
+        letter-spacing: -2px;
+    }
+
+    .coin-unit {
+        font-size: 1rem;
+        color: #ffffff;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-top: -5px;
+        background: rgba(0, 20, 40, 0.9);
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 212, 255, 0.4);
+    }
+
+    .coin-geometric-pattern {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: 
+            radial-gradient(circle at center, transparent 60%, rgba(0, 212, 255, 0.1) 100%),
+            repeating-conic-gradient(
+                from 0deg,
+                transparent 0deg 15deg,
+                rgba(0, 212, 255, 0.05) 15deg 30deg
+            );
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: patternRotate 20s linear infinite;
+    }
+
+    @keyframes patternRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .coin-light-dots {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .coin-light-dots .dot {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #00d4ff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #00d4ff;
+        animation: dotTwinkle 2s infinite alternate;
+    }
+
+    .coin-light-dots .dot:nth-child(1) { top: 20%; left: 20%; }
+    .coin-light-dots .dot:nth-child(2) { top: 20%; right: 20%; }
+    .coin-light-dots .dot:nth-child(3) { bottom: 20%; left: 20%; }
+    .coin-light-dots .dot:nth-child(4) { bottom: 20%; right: 20%; }
+
+    @keyframes dotTwinkle {
+        0% { opacity: 0.3; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .coin-back {
+        background: radial-gradient(circle at 70% 30%, 
+            #1a1a2e 0%,
+            #0f3460 40%,
+            #ff0066 100%
+        );
+        transform: rotateY(180deg);
+        color: white;
+        border: 4px solid rgba(255, 0, 102, 0.6);
+        box-shadow: 
+            inset 0 0 40px rgba(255, 0, 102, 0.3),
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(255, 0, 102, 0.3);
+    }
+
+    .coin-back i {
+        font-size: 2.5rem;
+        color: #ffffff;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+        animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .coin-back-text {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 3px 8px;
+        border-radius: 4px;
+    }
+
+    .coin-back-glitch {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            45deg,
+            transparent 45%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 55%
+        );
+        background-size: 200% 200%;
+        animation: glitch 3s infinite;
+        opacity: 0.5;
+    }
+
+    @keyframes glitch {
+        0% { background-position: -200% -200%; }
+        100% { background-position: 200% 200%; }
+    }
+
+    .coin-btn:hover .coin-front {
+        transform: rotateY(-180deg);
+    }
+
+    .coin-btn:hover .coin-back {
+        transform: rotateY(0deg);
+    }
+
+    .coin-bubble {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background: rgba(0, 20, 40, 0.95);
+        color: var(--primary);
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+        border: 1px solid rgba(0, 212, 255, 0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+    }
+
+    .coin-bubble::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid rgba(0, 20, 40, 0.95);
+    }
+
+    .coin-btn:hover .coin-bubble {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===== PANEL DESPLEGABLE DE DONACIONES ===== */
+    .donation-panel {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        background: linear-gradient(135deg, rgba(10, 25, 41, 0.98), rgba(7, 18, 32, 0.98));
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        width: 300px;
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 20px rgba(0, 212, 255, 0.2);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .donation-panel.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-15px);
+    }
+
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    .panel-header h4 {
+        color: var(--accent);
+        margin: 0;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .panel-close {
+        background: none;
+        border: none;
+        color: #b0d4ff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        line-height: 1;
+        transition: color 0.3s ease;
+    }
+
+    .panel-close:hover {
+        color: var(--accent);
+    }
+
+    .panel-description {
+        color: #b0d4ff;
+        font-size: 0.85rem;
+        text-align: center;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+
+    .donation-quick-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .quick-amount {
+        padding: 10px;
+        background: rgba(0, 212, 255, 0.05);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 6px;
+        color: #b0d4ff;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .quick-amount:hover {
+        background: rgba(0, 212, 255, 0.1);
+        border-color: var(--primary);
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .custom-donation-input {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .input-group {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .input-prefix {
+        position: absolute;
+        left: 12px;
+        color: var(--primary);
+        font-weight: 600;
+        z-index: 1;
+    }
+
+    .custom-donation-input-field {
+        width: 100%;
+        padding: 10px 10px 10px 35px;
+        background: rgba(0, 212, 255, 0.05);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 6px;
+        color: var(--light);
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .custom-donation-input-field:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 10px rgba(255, 0, 102, 0.2);
+    }
+
+    .btn-continue {
+        padding: 10px 20px;
+        background: linear-gradient(135deg, var(--accent), #cc0044);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .btn-continue:hover {
+        background: linear-gradient(135deg, #ff3366, #ff0044);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 0, 102, 0.3);
+    }
+
+    /* ===== MODAL DE DONACIÓN - REPARADO ===== */
+    .donation-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .modal-content {
+        background: linear-gradient(135deg, #0a1929, #071220);
+        width: 100%;
+        max-width: 500px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+        animation: modalSlideIn 0.4s ease-out;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(0, 15, 30, 0.95));
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .modal-header h3 {
+        color: var(--primary);
+        margin: 0;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        color: #b0d4ff;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--accent);
+        transform: rotate(90deg);
+    }
+
+    .modal-body {
+        padding: 25px;
+    }
+
+    .donation-summary {
+        text-align: center;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    .donation-amount {
+        font-size: 2.5rem;
+        color: var(--accent);
+        font-weight: bold;    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 212, 255, 0.2), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.social-link:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    color: var(--accent);
+}
+
+.social-link:hover::before {
+    left: 100%;
+}
+
+/* Footer links */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links li:last-child {
+    margin-bottom: 0;
+}
+
+.footer-links a {
+    color: #b0d4ff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-links a::before {
+    content: '›';
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    transform: translateX(5px);
+}
+
+.footer-links a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.footer-links a i {
+    font-size: 0.8rem;
+    width: 16px;
+    color: rgba(0, 212, 255, 0.7);
+}
+
+/* Formulario newsletter */
+.form-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px 12px 35px;
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 6px;
+    color: var(--light);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(0, 212, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.btn-newsletter {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary), #0088cc);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-newsletter:hover {
+    background: linear-gradient(135deg, #00d4ff, #0066cc);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Métodos de pago */
+.simple-payment-methods {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 212, 255, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-methods-label {
+    color: #b0d4ff;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.payment-methods-label i {
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.payment-icons-mini {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 5px 0;
+}
+
+.payment-icon-mini {
+    width: 28px;
+    height: 28px;
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: default;
+    position: relative;
+}
+
+.payment-icon-mini i {
+    color: #b0d4ff;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+.payment-icon-mini:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.payment-icon-mini:hover i {
+    color: var(--primary);
+    opacity: 1;
+}
+
+.payment-icon-mini:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 20, 40, 0.95);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    z-index: 100;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    margin-bottom: 8px;
+    pointer-events: none;
+}
+
+.payment-security-note {
+    color: var(--success);
+    font-size: 0.75rem;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+/* Divider */
+.footer-divider {
+    position: relative;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.divider-line {
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 212, 255, 0.3), 
+        rgba(255, 0, 102, 0.3), 
+        rgba(0, 212, 255, 0.3), 
+        transparent);
+}
+
+.divider-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: #0a1929;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.divider-logo i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+/* Copyright */
+.copyright {
+    text-align: center;
+    padding: 30px 0;
+    color: #8bb9ff;
+    font-size: 0.85rem;
+}
+
+.copyright p {
+    margin-bottom: 15px;
+}
+
+.footer-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.badge {
+    padding: 6px 14px;
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #b0d4ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.badge:hover::before {
+    left: 100%;
+}
+
+.badge:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .footer-content {
+        gap: 30px;
+    }
+    
+    .donation-panel {
+        width: 280px;
+    }
+    
+    .coin-btn {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .coin-value {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 30px;
+    }
+    
+    .location-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .map-container {
+        height: 300px;
+        min-height: 300px;
+    }
+    
+    .location-info-compact {
+        height: auto;
+    }
+    
+    .donation-panel {
+        width: 260px;
+        left: 0;
+        transform: translateY(-10px);
+    }
+    
+    .donation-panel.active {
+        transform: translateY(-15px);
+    }
+    
+    .coin-btn {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .coin-value {
+        font-size: 2.2rem;
+    }
+    
+    .coin-unit {
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .certifications-section h4 {
+        font-size: 1.2rem;
+    }
+    
+    .certification-logos {
+        gap: 20px;
+    }
+    
+    .cert-logo {
+        width: 90px;
+        height: 90px;
+        padding: 10px;
+    }
+    
+    .location-section {
+        padding: 25px 0;
+    }
+    
+    .map-container {
+        height: 250px;
+        min-height: 250px;
+    }
+    
+    .location-info-compact {
+        padding: 15px;
+    }
+    
+    .info-item-compact {
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+    
+    .payment-icons-mini {
+        gap: 6px;
+    }
+    
+    .payment-icon-mini {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .coin-btn {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .coin-value {
+        font-size: 2rem;
+    }
+    
+    .coin-title {
+        font-size: 0.8rem;
+    }
+    
+    .payment-methods-donation {
+        flex-direction: column;
+    }
+    
+    .qr-image {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .certification-logos {
+        justify-content: space-around;
+        gap: 15px;
+    }
+    
+    .cert-logo {
+        width: 80px;
+        height: 80px;
+        padding: 8px;
+    }
+    
+    .footer-divider {
+        margin: 30px 0;
+    }
+    
+    .footer-badges {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .coin-donation-section {
+        margin: 20px 0;
+    }
+    
+    .coin-btn {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .coin-value {
+        font-size: 1.8rem;
+    }
+    
+    .coin-unit {
+        font-size: 0.8rem;
+    }
+    
+    .donation-panel {
+        width: 220px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    
+    .donation-panel.active {
+        transform: translateX(-50%) translateY(-15px);
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        border-radius: 12px;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .donation-amount {
+        font-size: 2rem;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-confirm-donation, .btn-cancel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .certification-logos {
+        gap: 12px;
+    }
+    
+    .cert-logo {
+        width: 70px;
+        height: 70px;
+        padding: 6px;
+    }
+    
+    .location-title {
+        font-size: 1rem;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .map-container {
+        height: 220px;
+        min-height: 220px;
+    }
+    
+    .info-item-compact {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .info-item-compact i {
+        margin: 0 auto;
+    }
+    
+    .payment-icons-mini {
+        gap: 4px;
+    }
+    
+    .payment-icon-mini {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .payment-icon-mini i {
+        font-size: 0.75rem;
+    }
+    
+    .coin-btn {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .coin-value {
+        font-size: 1.6rem;
+    }
+    
+    .custom-donation-input {
+        flex-direction: column;
+    }
+    
+    .btn-continue {
+        width: 100%;
+    }
+    
+    .qr-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .bank-detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    
+    .detail-value {
+        text-align: left;
+    }
+}
+
+@media (max-width: 380px) {
+    .cert-logo {
+        width: 60px;
+        height: 60px;
+        padding: 4px;
+    }
+    
+    .certifications-section h4 {
+        font-size: 1.1rem;
+        padding: 0 15px;
+    }
+    
+    .donation-panel {
+        width: 200px;
+    }
+    
+    .donation-quick-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .coin-btn {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .coin-value {
+        font-size: 1.5rem;
+    }
+    
+    .qr-image {
+        width: 140px;
+        height: 140px;
+    }
+}

@@ -1,0 +1,620 @@
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #ff0066;
+            --accent: #ffaa00;
+            --success: #00ff88;
+            --dark: #0a0f1a;
+            --darker: #001122;
+            --light: #88ccff;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Arial', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #0099cc);
+            color: var(--darker);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #00ffff, #00cccc);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #cc0055);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #ff3388, #cc0055);
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.8);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #00cc66);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #33ff99, #00cc66);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Estilos específicos para la Academia */
+        .academy-section {
+            background: linear-gradient(135deg, #001122, #002244);
+        }
+
+        .academy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .academy-card {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .academy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .academy-card:hover::before {
+            opacity: 0.2;
+        }
+
+        .academy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .academy-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .academy-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .academy-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .academy-card p {
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .module-content {
+            display: none;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .module-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .module-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .module-content-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .back-to-academy {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .back-to-academy:hover {
+            color: var(--light);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .module-content h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .module-content h3 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .step-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+
+        .step-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .quiz-option input {
+            display: none;
+        }
+
+        .quiz-option label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.correct {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid var(--success);
+            display: block;
+        }
+
+        .quiz-result.incorrect {
+            background: rgba(255, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            display: block;
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 10px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 5px;
+            margin: 0 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #0099cc);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .module-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* Estilos para la Prueba de Evaluación */
+        .evaluation-section {
+            background: linear-gradient(135deg, #001122, #002244);
+            display: none;
+        }
+
+        .evaluation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .evaluation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('img/batallas.jpeg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .evaluation-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .evaluation-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .evaluation-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .score-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .pass-message {
+            color: var(--success);
+        }
+
+        .fail-message {
+            color: var(--danger);
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .certificate h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .certificate p {
+            margin-bottom: 15px;
+        }
+
+        /* Estilos para imágenes de fondo específicas por módulo */
+        .module-blockchain {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-blockchain::before {
+            background-image: url('img/logo1OK.png');
+        }
+
+        .module-cryptocurrency {
+             
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-cryptocurrency::before {
+            background-image: url('img/logo1OK.png');
+        }
+
+        .module-mining {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-mining::before {
+           background-image: url('img/logo1OK.png');
+        }
+
+        .module-usdt {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-usdt::before {
+           background-image: url('img/logo1OK.png');
+        }
+
+        .module-scams {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-scams::before {
+           background-image: url('img/logo1OK.png');
+        }
+
+        .module-pyramids {
+            background: linear-gradient(135deg, #002244, #004466);
+            border: 2px solid var(--primary);
+        }
+        
+        .module-pyramids::before {
+            background-image: url('img/logo1OK.png');
+        }
+
+        /* Imágenes de fondo para las tarjetas */
+        .academy-card[data-module="blockchain"]::before {
+            background-image: url('img/batallasok.jpeg');
+        }
+
+        .academy-card[data-module="cryptocurrency"]::before {
+            background-image: url('img/logo1OK.png');
+        }
+
+        .academy-card[data-module="mining"]::before {
+            background-image: url('img/mining.jpeg');
+        }
+
+        .academy-card[data-module="usdt"]::before {
+            background-image: url('img/usdt.jpeg');
+        }
+
+        .academy-card[data-module="scams"]::before {
+            background-image: url('img/poster2.jpeg');
+        }
+
+        .academy-card[data-module="pyramids"]::before {
+            background-image: url('img/peligro.jpeg');
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .academy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .progress-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .progress-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .module-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .module-nav .btn {
+                width: 100%;
+            }
+            
+            .evaluation-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
